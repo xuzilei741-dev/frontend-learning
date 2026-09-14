@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 6 · 表单 form 练习</title>
+</head>
+<body>
+
+  <!-- ============================================ -->
+  <!-- 1. form 基础概念 -->
+  <!-- ============================================ -->
+  <h2>1. 表单 form 基础</h2>
+  <p>表单 = 用户输入 + 提交给后端。核心标签:</p>
+  <ul>
+    <li><strong>form</strong>:表单容器,里面所有输入都属于这张表单</li>
+    <li><strong>label</strong>:输入框文字标签,点 label 文字光标会跳到对应输入框</li>
+    <li><strong>input</strong>:最常用输入标签,靠 <code>type</code> 属性决定种类(十几种)</li>
+    <li><strong>textarea</strong>:多行文本输入框</li>
+    <li><strong>select</strong> + <strong>option</strong>:下拉选择框</li>
+    <li><strong>button</strong>:按钮,type="submit" 就可以提交表单</li>
+  </ul>
+
+  <h3>label 的正确用法(关联输入框)</h3>
+  <p>方式 1:用 for + id 关联(推荐)</p>
+  <label for="u1">用户名:</label>
+  <input type="text" id="u1" name="username" placeholder="请输入用户名">
+
+  <p>方式 2:把 input 嵌套在 label 里</p>
+  <label>邮箱:
+    <input type="email" name="email" placeholder="xxx@example.com">
+  </label>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 2. input 各种 type -->
+  <!-- ============================================ -->
+  <h2>2. input 常用 type 一览</h2>
+
+  <form>
+    <p><label>① text 单行文本: <input type="text" name="nickname" placeholder="昵称"></label></p>
+    <p><label>② password 密码: <input type="password" name="pwd" placeholder="输入密码"></label></p>
+    <p><label>③ email 邮箱: <input type="email" name="mail" placeholder="xxx@xx.com"></label></p>
+    <p><label>④ number 数字: <input type="number" name="age" min="0" max="150" placeholder="年龄"></label></p>
+    <p><label>⑤ tel 手机号: <input type="tel" name="phone" placeholder="11 位手机号"></label></p>
+    <p><label>⑥ url 网址: <input type="url" name="site" placeholder="https://..."></label></p>
+    <p><label>⑦ date 日期: <input type="date" name="birthday"></label></p>
+    <p><label>⑧ time 时间: <input type="time" name="meet_time"></label></p>
+    <p><label>⑨ color 颜色: <input type="color" name="fav_color"></label></p>
+    <p><label>⑩ range 滑块: <input type="range" name="volume" min="0" max="100"></label></p>
+    <p><label>⑪ file 上传: <input type="file" name="avatar"></label></p>
+    <p><label>⑫ hidden 隐藏字段: <input type="hidden" name="token" value="abc1234"> (页面看不到)</label></p>
+    <p>⑬ radio 单选(同一组 name 必须相同,否则能全选):
+      <br>
+      <label><input type="radio" name="gender" value="male"> 男</label>
+      <label><input type="radio" name="gender" value="female"> 女</label>
+      <label><input type="radio" name="gender" value="other"> 其他</label>
+    </p>
+    <p>⑭ checkbox 多选(同一组 name 相同,多个值数组形式提交):
+      <br>
+      <label><input type="checkbox" name="hobby" value="code"> 写代码</label>
+      <label><input type="checkbox" name="hobby" value="read"> 阅读</label>
+      <label><input type="checkbox" name="hobby" value="music"> 听音乐</label>
+    </p>
+    <p>
+      <input type="submit" value="点我提交(看地址栏变化)">
+      <input type="reset" value="重置">
+    </p>
+  </form>
+
+  <p style="color:gray;font-size:12px;">💡 点「提交」后看地址栏,会在文件后面拼出 <code>?字段1=值1&字段2=值2...</code>,这就是 GET 方式提交表单(HTTP 参数)。没有配后端接口的情况下只能这样直观看到提交了什么,后面学 JS 我们再做真正的处理。</p>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 3. textarea 多行文本 + select 下拉 -->
+  <!-- ============================================ -->
+  <h2>3. 多行文本与下拉框</h2>
+
+  <form>
+    <p><strong>textarea 多行文本</strong>(rows 控制高度,cols 控制宽度):</p>
+    <textarea name="bio" rows="4" cols="50" placeholder="请介绍一下你自己..."></textarea>
+
+    <p><strong>select 下拉框</strong>:</p>
+    <select name="city">
+      <option value="">-- 请选择城市 --</option>
+      <option value="beijing">北京</option>
+      <option value="shanghai">上海</option>
+      <option value="guangzhou">广州</option>
+      <option value="shenzhen">深圳</option>
+    </select>
+
+    <p><strong>select + optgroup 分组下拉</strong>:</p>
+    <select name="skill">
+      <option value="">-- 请选择技能方向 --</option>
+      <optgroup label="前端">
+        <option value="html">HTML / CSS</option>
+        <option value="js">JavaScript</option>
+        <option value="react">React</option>
+      </optgroup>
+      <optgroup label="后端">
+        <option value="node">Node.js</option>
+        <option value="python">Python</option>
+        <option value="java">Java</option>
+      </optgroup>
+    </select>
+  </form>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 4. 常用属性:placeholder/value/checked/selected/disabled/required -->
+  <!-- ============================================ -->
+  <h2>4. 常用输入属性</h2>
+
+  <ul>
+    <li><strong>placeholder</strong>:输入框内提示文字(没输入时的灰字)</li>
+    <li><strong>value</strong>:默认值,text/password/number 等 type 自带的初始内容</li>
+    <li><strong>checked</strong>:radio / checkbox 默认选中</li>
+    <li><strong>selected</strong>:option 默认选中</li>
+    <li><strong>disabled</strong>:禁用,不可编辑也不提交</li>
+    <li><strong>required</strong>:必填,空着点提交会弹浏览器的红色提示</li>
+    <li><strong>maxlength</strong>:最大输入字符数</li>
+    <li><strong>min / max</strong>:number/date/range 的最小/最大值</li>
+  </ul>
+
+  <form>
+    <p><label>必填用户名: <input type="text" name="user" placeholder="必填,最多 12 字" maxlength="12" required></label></p>
+    <p><label>默认值(预设昵称): <input type="text" name="nick" value="前端新手"></label></p>
+    <p>默认勾中的选项:
+      <label><input type="checkbox" name="agree" checked> 我已阅读协议</label>
+      <label><input type="radio" name="level" value="beginner" checked> 初学者</label>
+      <label><input type="radio" name="level" value="pro"> 进阶者</label>
+    </p>
+    <p>默认选中的下拉项:
+      <select name="province">
+        <option>请选择</option>
+        <option value="gd" selected>广东</option>
+        <option value="zj">浙江</option>
+      </select>
+    </p>
+    <p>禁用输入(不能编辑):
+      <input type="text" value="这一项不可修改" disabled>
+    </p>
+    <p><input type="submit" value="点提交看 required 提示"></p>
+  </form>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 5. 练习区:做一张用户注册表单 -->
+  <!-- ============================================ -->
+  <h2>5. 练习区:用户注册表单</h2>
+
+  <p><strong>任务</strong>:在下面动手区写一张完整的用户注册表单,参考实际注册页常用字段。下面是建议结构:</p>
+
+  <table border="1" cellpadding="8" cellspacing="0" style="font-size:13px;">
+    <thead>
+      <tr>
+        <th>字段名</th>
+        <th>输入类型</th>
+        <th>说明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>用户名</td>
+        <td>text</td>
+        <td>placeholder「3~12 位字符」,maxlength=12,required</td>
+      </tr>
+      <tr>
+        <td>密码</td>
+        <td>password</td>
+        <td>placeholder「至少 6 位」,required</td>
+      </tr>
+      <tr>
+        <td>确认密码</td>
+        <td>password</td>
+        <td>required</td>
+      </tr>
+      <tr>
+        <td>邮箱</td>
+        <td>email</td>
+        <td>required</td>
+      </tr>
+      <tr>
+        <td>手机号</td>
+        <td>tel</td>
+        <td>placeholder「11 位手机号」</td>
+      </tr>
+      <tr>
+        <td>性别</td>
+        <td>radio(男/女/其他)</td>
+        <td>name 必须相同,默认选中男</td>
+      </tr>
+      <tr>
+        <td>生日</td>
+        <td>date</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>所在城市</td>
+        <td>select</td>
+        <td>至少 4 个 option,含一个「请选择」空值</td>
+      </tr>
+      <tr>
+        <td>兴趣爱好</td>
+        <td>checkbox(3+ 项)</td>
+        <td>name 相同,至少 1 项默认勾选</td>
+      </tr>
+      <tr>
+        <td>个人简介</td>
+        <td>textarea rows="4"</td>
+        <td>placeholder「介绍一下你自己...」</td>
+      </tr>
+      <tr>
+        <td>同意协议</td>
+        <td>checkbox</td>
+        <td>required(必须勾才能提交)</td>
+      </tr>
+      <tr>
+        <td>注册按钮</td>
+        <td>input type=submit 或 button type=submit</td>
+        <td>按钮文字「立即注册」</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>硬性要求清单</strong>:</p>
+  <ul>
+    <li>✅ 外层必须用 <code>&lt;form&gt;</code> 标签包起来</li>
+    <li>✅ 每个输入框都要有 <code>name</code> 属性(否则提交时不带上这个字段)</li>
+    <li>✅ 至少用 6 种不同的 input type(text/password/email/tel/radio/checkbox/date 中任选)</li>
+    <li>✅ 有 1 个 select 下拉框,含 ≥4 个 option</li>
+    <li>✅ 有 1 个 textarea 多行文本</li>
+    <li>✅ 有 1 组 radio(≥3 个选项,name 相同)和 1 组 checkbox(≥3 个选项,name 相同)</li>
+    <li>✅ 至少 3 处 required 必填项</li>
+    <li>✅ 至少 2 处默认值(checked / selected / value 都行)</li>
+    <li>✅ 有一个 submit 提交按钮</li>
+  </ul>
+
+  <!-- ========== 动手区:在下面写你的注册表单 ========== -->
+
+  <h3>👩‍💻 我的用户注册表单</h3>
+  <!-- 在下面的空 form 里填内容 -->
+  <form>
+    <p><label>用户名: <input type="text" name="user" placeholder="3~12 位字符" maxlength="12" required></label></p>
+    <p><label>密码: <input type="password" name="password" placeholder="至少 6 位" required></label></p>
+    <p><label>确认密码: <input type="password" name="confirm" required></label></p>
+    <p><label>邮箱: <input type="email" name="email" required></label></p>
+    <p><label>手机号: <input type="tel" name="phone" placeholder="11 位手机号"></label></p>
+    <p><label>性别:
+      <label><input type="radio" name="gender" value="male" checked> 男</label>
+      <label><input type="radio" name="gender" value="female"> 女</label>
+      <label><input type="radio" name="gender" value="other"> 其他</label>
+    </label></p>
+    <p><label>生日: <input type="date" name="birthday"></label></p>
+    <p><label>所在城市:
+      <select name="city" required>
+        <option value="" disabled selected>请选择</option>
+        <option value="gd">广东</option>
+        <option value="zj">浙江</option>
+        <option value="sh">上海</option>
+        <option value="bj">北京</option>
+      </select>
+    </label></p>
+    <p><label>兴趣爱好:
+      <label><input type="checkbox" name="hobby" value="1"> 篮球</label>
+      <label><input type="checkbox" name="hobby" value="2"> 足球</label>
+      <label><input type="checkbox" name="hobby" value="3"> 跑步</label>
+      <label><input type="checkbox" name="hobby" value="4"> 羽毛球</label>
+      <label><input type="checkbox" name="hobby" value="5"> 其他</label>
+    </label></p>
+    <p><label>个人简介: <textarea name="intro" rows="4" placeholder="介绍一下你自己..."></textarea></label></p>
+    <p><label>同意协议: <input type="checkbox" name="agree" required></label></p>
+    <p><label>注册按钮: <input type="submit" value="立即注册"></label></p>
+  </form>
+
+</body>
+</html>

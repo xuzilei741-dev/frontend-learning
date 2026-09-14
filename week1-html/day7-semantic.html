@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 7 · 语义化标签 + 综合练习</title>
+</head>
+<body>
+
+  <!-- ============================================ -->
+  <!-- 1. 什么是语义化 -->
+  <!-- ============================================ -->
+  <h2>1. 什么是语义化?</h2>
+  <p><strong>语义化</strong> = 用有意义的标签代替 div,让浏览器、搜索引擎、读屏软件都能看懂「这一块是干什么的」。</p>
+
+  <p>对比:</p>
+  <pre>
+非语义化:
+  &lt;div class="header"&gt;网站标题&lt;/div&gt;
+  &lt;div class="nav"&gt;导航&lt;/div&gt;
+  &lt;div class="main"&gt;正文&lt;/div&gt;
+
+语义化:
+  &lt;header&gt;网站标题&lt;/header&gt;
+  &lt;nav&gt;导航&lt;/nav&gt;
+  &lt;main&gt;正文&lt;/main&gt;
+  </pre>
+
+  <p>好处:</p>
+  <ul>
+    <li><strong>SEO 友好</strong>:搜索引擎更容易理解页面结构</li>
+    <li><strong>无障碍</strong>:读屏软件(盲人用户)能正确朗读</li>
+    <li><strong>代码可读性</strong>:看标签名就知道这一块是干嘛的</li>
+    <li><strong>移动端适配</strong>:浏览器对语义标签有默认样式</li>
+  </ul>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 2. 页面结构标签 -->
+  <!-- ============================================ -->
+  <h2>2. 页面结构标签(最重要!)</h2>
+
+  <p>一张典型的网页布局:</p>
+
+  <div style="border:2px solid #333;padding:10px;margin:10px 0;">
+    <div style="background:#eee;padding:8px;text-align:center;font-weight:bold;">header(顶部:logo + 导航)</div>
+    <div style="background:#f5f5f5;padding:8px;text-align:center;">nav(导航条)</div>
+    <div style="display:flex;gap:10px;margin-top:10px;">
+      <div style="flex:2;background:#fafafa;padding:8px;text-align:center;">main(主体内容)<br><br>article(独立文章)<br>section(章节)</div>
+      <div style="flex:1;background:#fafafa;padding:8px;text-align:center;">aside(侧边栏)</div>
+    </div>
+    <div style="background:#eee;padding:8px;text-align:center;margin-top:10px;">footer(底部:版权 + 链接)</div>
+  </div>
+
+  <h3>八大结构标签</h3>
+  <table border="1" cellpadding="8" cellspacing="0" style="font-size:13px;">
+    <thead>
+      <tr>
+        <th>标签</th>
+        <th>作用</th>
+        <th>使用频率</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>&lt;header&gt;</code></td>
+        <td>页眉 / 区块的顶部</td>
+        <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><code>&lt;nav&gt;</code></td>
+        <td>导航菜单(主要链接区)</td>
+        <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><code>&lt;main&gt;</code></td>
+        <td>页面主要内容(一页只有一个)</td>
+        <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><code>&lt;article&gt;</code></td>
+        <td>独立完整的内容(文章/评论/卡片)</td>
+        <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><code>&lt;section&gt;</code></td>
+        <td>章节 / 区块(有标题的语义分组)</td>
+        <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><code>&lt;aside&gt;</code></td>
+        <td>侧边栏 / 与主内容相关的辅助信息</td>
+        <td>⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><code>&lt;footer&gt;</code></td>
+        <td>页脚 / 区块的底部</td>
+        <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><code>&lt;figure&gt;</code></td>
+        <td>图文组合(图 + 说明)</td>
+        <td>⭐⭐</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>示例:标准页面骨架</h3>
+  <pre>
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;网站标题&lt;/h1&gt;
+    &lt;nav&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#"&gt;首页&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;关于&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;article&gt;
+      &lt;h2&gt;文章标题&lt;/h2&gt;
+      &lt;p&gt;正文...&lt;/p&gt;
+      &lt;section&gt;
+        &lt;h3&gt;第一段&lt;/h3&gt;
+        &lt;p&gt;内容...&lt;/p&gt;
+      &lt;/section&gt;
+    &lt;/article&gt;
+
+    &lt;aside&gt;
+      &lt;h3&gt;相关推荐&lt;/h3&gt;
+      &lt;ul&gt;
+        &lt;li&gt;推荐文章 1&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/aside&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;© 2026 我的网站&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;
+  </pre>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 3. 文本级语义标签 -->
+  <!-- ============================================ -->
+  <h2>3. 文本级语义标签</h2>
+
+  <table border="1" cellpadding="8" cellspacing="0" style="font-size:13px;">
+    <thead>
+      <tr>
+        <th>标签</th>
+        <th>含义</th>
+        <th>显示效果</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>&lt;time&gt;</code></td>
+        <td>时间/日期</td>
+        <td><time datetime="2026-08-28">2026 年 8 月 28 日</time></td>
+      </tr>
+      <tr>
+        <td><code>&lt;mark&gt;</code></td>
+        <td>标记/高亮</td>
+        <td>这句话里 <mark>这几个字</mark> 被高亮了</td>
+      </tr>
+      <tr>
+        <td><code>&lt;abbr&gt;</code></td>
+        <td>缩写(鼠标悬停显示全称)</td>
+        <td><abbr title="HyperText Markup Language">HTML</abbr></td>
+      </tr>
+      <tr>
+        <td><code>&lt;blockquote&gt;</code></td>
+        <td>块级引用(别人的话)</td>
+        <td><blockquote cite="https://example.com">这是引用的一大段内容。</blockquote></td>
+      </tr>
+      <tr>
+        <td><code>&lt;q&gt;</code></td>
+        <td>行内引用</td>
+        <td>他说:<q>前端很有趣</q></td>
+      </tr>
+      <tr>
+        <td><code>&lt;details&gt;</code> + <code>&lt;summary&gt;</code></td>
+        <td>可折叠区域</td>
+        <td>
+          <details>
+            <summary>点击展开答案</summary>
+            <p>展开后的内容</p>
+          </details>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 4. figure + figcaption 图文组合 -->
+  <!-- ============================================ -->
+  <h2>4. figure + figcaption(图文组合)</h2>
+
+  <p>用于「图片 + 说明文字」的组合,说明文字用 figcaption:</p>
+
+  <figure style="display:inline-block;border:1px solid #ccc;padding:10px;">
+    <img src="https://favicon.cccyun.cc/developer.mozilla.org" alt="MDN Logo" width="60">
+    <figcaption style="text-align:center;font-size:12px;color:#666;">图 1:MDN 官网 logo</figcaption>
+  </figure>
+
+  <p>代码:</p>
+  <pre>
+&lt;figure&gt;
+  &lt;img src="mdn.png" alt="MDN Logo"&gt;
+  &lt;figcaption&gt;图 1:MDN 官网 logo&lt;/figcaption&gt;
+&lt;/figure&gt;
+  </pre>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 5. 综合练习:重构个人主页 -->
+  <!-- ============================================ -->
+  <h2>5. 综合练习:用语义化标签重构个人主页</h2>
+
+  <p><strong>任务</strong>:在下方动手区,用语义化标签写一个完整的个人主页,把本周学过的所有标签整合起来。下面是结构要求:</p>
+
+  <table border="1" cellpadding="8" cellspacing="0" style="font-size:13px;">
+    <thead>
+      <tr>
+        <th>区域</th>
+        <th>用到的标签</th>
+        <th>内容建议</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>页眉</td>
+        <td>header + h1 + nav</td>
+        <td>网站名 + 导航(首页/文章/关于)</td>
+      </tr>
+      <tr>
+        <td>主体</td>
+        <td>main + article + section</td>
+        <td>至少 1 篇文章,内含 ≥2 个 section</td>
+      </tr>
+      <tr>
+        <td>侧边栏</td>
+        <td>aside</td>
+        <td>相关推荐或个人信息</td>
+      </tr>
+      <tr>
+        <td>页脚</td>
+        <td>footer</td>
+        <td>版权 + 联系方式</td>
+      </tr>
+      <tr>
+        <td>图文</td>
+        <td>figure + figcaption</td>
+        <td>1 张图 + 说明</td>
+      </tr>
+      <tr>
+        <td>时间</td>
+        <td>time</td>
+        <td>文章发布日期</td>
+      </tr>
+      <tr>
+        <td>引用</td>
+        <td>blockquote</td>
+        <td>1 段名言引用</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>硬性要求清单</strong>:</p>
+  <ul>
+    <li>✅ 用 <code>&lt;header&gt;</code> 包顶部,内有 <code>&lt;h1&gt;</code> + <code>&lt;nav&gt;</code></li>
+    <li>✅ nav 里至少 3 个导航链接(用 ul + li + a)</li>
+    <li>✅ 用 <code>&lt;main&gt;</code> 包主内容</li>
+    <li>✅ main 内至少 1 个 <code>&lt;article&gt;</code>,article 内至少 2 个 <code>&lt;section&gt;</code></li>
+    <li>✅ 每个 section 都要有 <code>&lt;h2&gt;</code> 或 <code>&lt;h3&gt;</code> 标题</li>
+    <li>✅ 用 <code>&lt;aside&gt;</code> 做侧边栏</li>
+    <li>✅ 用 <code>&lt;footer&gt;</code> 包底部,内有版权信息和联系方式</li>
+    <li>✅ 至少 1 个 <code>&lt;figure&gt;</code> + <code>&lt;figcaption&gt;</code></li>
+    <li>✅ 至少 1 个 <code>&lt;time&gt;</code> 标签(datetime 属性)</li>
+    <li>✅ 至少 1 个 <code>&lt;blockquote&gt;</code></li>
+    <li>✅ 综合用之前学过的 p / ul / a / img / hr / strong / em</li>
+  </ul>
+
+  <!-- ========== 动手区:在下面写你的个人主页 ========== -->
+
+  <h3>👩‍💻 我的语义化个人主页</h3>
+  <!-- 在下面的空标签里填内容 -->
+  <header>
+    <h1>我的个人主页</h1>
+    <nav>
+      <ul>
+        <li><a href="#">首页</a></li>
+        <li><a href="#">文章</a></li>
+        <li><a href="#">关于</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <hr>
+
+  <main>
+    <article>
+      <h2>最新文章</h2>
+      <p><em>发布于:</em> <time datetime="2023-08-15">2023 年 8 月 15 日</time></p>
+
+      <section>
+        <h3>文章标题 1:前端学习之路</h3>
+        <p>这是最新文章 1 的内容。<strong>语义化标签是前端开发的基础</strong>,掌握它对代码质量非常重要。</p>
+        <p>作者: 王小红</p>
+        <p>标签: 前端, 语义化</p>
+        <p>引用: <q>前端很有趣</q></p>
+        <p>这是一个段落。</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h3>文章标题 2:推荐资源</h3>
+        <p>这是最新文章 2 的内容。推荐大家多看 MDN 文档学习:</p>
+        <figure>
+          <img src="https://favicon.cccyun.cc/developer.mozilla.org" alt="MDN Logo" width="60">
+          <figcaption style="text-align:center;font-size:12px;color:#666;">图 2:MDN 官网 logo</figcaption>
+        </figure>
+      </section>
+
+      <hr>
+
+      <section>
+        <h3>文章标题 3:我的座右铭</h3>
+        <p>这是最新文章 3 的内容。分享一句话激励自己:</p>
+        <blockquote cite="https://www.example.com/quote">学习是一个<strong>持续积累</strong>的过程,每天进步一点点。</blockquote>
+      </section>
+    </article>
+
+    <aside>
+      <h3>相关推荐</h3>
+      <ul>
+        <li><a href="#">推荐文章 1</a></li>
+        <li><a href="#">推荐文章 2</a></li>
+        <li><a href="#">推荐文章 3</a></li>
+      </ul>
+    </aside>
+  </main>
+
+  <hr>
+
+  <footer>
+    <p>© 2026 我的个人主页. 保留所有权利.</p>
+    <p>联系我们: <a href="mailto:contact@example.com">contact@example.com</a></p>
+    <p>地址: 北京市海淀区</p>
+  </footer>
+</html>

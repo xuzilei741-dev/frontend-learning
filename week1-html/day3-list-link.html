@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 3 · 列表与链接练习</title>
+</head>
+<body>
+
+  <!-- ============================================ -->
+  <!-- 1. 无序列表 ul(unordered list,圆点列表) -->
+  <!-- ============================================ -->
+  <h2>无序列表 ul</h2>
+  <p>用于没有顺序关系的项目列表,默认显示为圆点。</p>
+  <ul>
+    <li>HTML 超文本标记语言</li>
+    <li>CSS 层叠样式表</li>
+    <li>JavaScript 脚本语言</li>
+  </ul>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 2. 有序列表 ol(ordered list,数字列表) -->
+  <!-- ============================================ -->
+  <h2>有序列表 ol</h2>
+  <p>用于有顺序关系的项目,默认显示为阿拉伯数字。</p>
+  <ol>
+    <li>打开 VS Code</li>
+    <li>新建 index.html</li>
+    <li>输入代码并保存</li>
+    <li>用浏览器打开预览</li>
+  </ol>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 3. 定义列表 dl(definition list,术语 + 描述) -->
+  <!-- ============================================ -->
+  <h2>定义列表 dl</h2>
+  <p>用于「术语 - 解释」结构,dt 是 term(术语),dd 是 description(描述)。</p>
+  <dl>
+    <dt>HTML</dt>
+    <dd>超文本标记语言,负责网页的结构。</dd>
+
+    <dt>CSS</dt>
+    <dd>层叠样式表,负责网页的样式。</dd>
+
+    <dt>JS</dt>
+    <dd>JavaScript,负责网页的交互。</dd>
+  </dl>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 4. 超链接 a(anchor,锚点) -->
+  <!-- ============================================ -->
+  <h2>超链接 a</h2>
+
+  <!-- 4.1 普通跳转:href 指向网址 -->
+  <p>跳转到外部网站:</p>
+  <a href="https://www.baidu.com">百度一下</a>
+  <br>
+  <a href="https://developer.mozilla.org">MDN 文档(前端必备)</a>
+
+  <br><br>
+
+  <!-- 4.2 新窗口打开:target="_blank" -->
+  <p>在新窗口打开(加 target 属性):</p>
+  <a href="https://github.com" target="_blank">GitHub(新窗口)</a>
+
+  <br><br>
+
+  <!-- 4.3 页面内锚点跳转 -->
+  <p>跳转到本页某个位置(锚点):</p>
+  <a href="#section-end">跳到本页底部</a>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 5. 练习区:做一个「我的收藏夹」导航页 -->
+  <!-- ============================================ -->
+  <!--
+    任务:在下面做一个自己的收藏夹页面,要求用到:
+      - 1 个 h1 主标题
+      - 1 个无序列表 ul,列出 ≥3 个常用网站(用 a 链接)
+      - 1 个有序列表 ol,列出 ≥3 个学习步骤
+      - 1 个定义列表 dl,列出 ≥2 个「术语 + 解释」
+      - 至少 1 个链接用 target="_blank" 新窗口打开
+      - 1 条 hr 分隔线
+  -->
+  <h1>我的收藏夹</h1>
+
+  <!-- 在下面继续写你的内容 -->
+  <h2>常用网站</h2>
+  <ul>
+    <li><a href="https://www.baidu.com"><img src="https://www.baidu.com/favicon.ico" alt="logo" width="20" height="20">百度一下</a></li>
+    <li><a href="https://support.skyguard.com.cn" target="_blank"><img src="https://support.skyguard.com.cn/favicon.ico" alt="logo" width="20" height="20">skyguard工单系统</a></li>
+    <li><a href="https://chat.deepseek.com" target="_blank"><img src="images/DeepSeek.png" alt="logo" width="20" height="20">deepseek</a></li>
+    <li><a href="https://www.lenovo.com.cn" target="_blank"><img src="https://www.lenovo.com.cn/favicon.ico" alt="logo" width="20" height="20">联想网页</a></li>
+  </ul>
+  
+  <hr>
+
+  <h2>学习步骤</h2>
+  <ol>
+    <li>了解标签定义</li>
+    <li>学习标签使用方法</li>
+    <li>参照案例自己练习</li>
+  </ol>
+
+  <hr>
+
+  <h2>术语解释</h2>
+  <dl>
+    <dt>无序列表 ul</dt>
+    <dd>用于没有顺序关系的项目列表,默认显示为圆点。</dd>
+    <dt>有序列表 ol</dt>
+    <dd>用于有顺序关系的项目,默认显示为阿拉伯数字。</dd>
+    <dt>定义列表 dl</dt>
+    <dd>用于「术语 - 解释」结构,dt 是 term(术语),dd 是 description(描述)。</dd>
+    <dt>超链接 a</dt>
+    <dd>跳转到外部网站</dd>
+  </dl>
+
+  <hr>
+
+
+  <!-- 这个 id 用于上面的锚点跳转演示 -->
+  <h2 id="section-end">本页底部</h2>
+  <p>你成功跳到这里了!这就是页面内锚点跳转。</p>
+
+</body>
+</html>

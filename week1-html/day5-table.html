@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 5 · 表格 table 练习</title>
+</head>
+<body>
+
+  <!-- ============================================ -->
+  <!-- 1. 基础表格 table / tr / td / th -->
+  <!-- ============================================ -->
+  <h2>1. 基础表格</h2>
+  <p>表格由「行 + 单元格」组成,四个核心标签:</p>
+  <ul>
+    <li><strong>table</strong>:整张大表格</li>
+    <li><strong>tr</strong>:table row,一行</li>
+    <li><strong>td</strong>:table data,普通单元格(数据格)</li>
+    <li><strong>th</strong>:table header,表头单元格(默认加粗居中)</li>
+  </ul>
+
+  <h3>示例:一张成绩单</h3>
+  <table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+      <th>姓名</th>
+      <th>语文</th>
+      <th>数学</th>
+      <th>英语</th>
+    </tr>
+    <tr>
+      <td>张三</td>
+      <td>85</td>
+      <td>92</td>
+      <td>78</td>
+    </tr>
+    <tr>
+      <td>李四</td>
+      <td>90</td>
+      <td>88</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <td>王五</td>
+      <td>76</td>
+      <td>100</td>
+      <td>82</td>
+    </tr>
+  </table>
+
+  <p style="color:gray;font-size:12px;">
+    💡 <code>border="1"</code> 显示边框,<code>cellpadding="8"</code> 单元格内边距,<code>cellspacing="0"</code> 单元格间距设为 0。
+    这些属性后面学 CSS 会替换掉,现阶段这样写最直观。
+  </p>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 2. thead / tbody / tfoot 语义化分组 -->
+  <!-- ============================================ -->
+  <h2>2. 语义化分组:thead / tbody / tfoot</h2>
+  <p>大表格可以分成「头/体/尾」三块,方便给屏幕阅读器和搜索引擎识别:</p>
+  <ul>
+    <li><strong>thead</strong>:表头区(放 th)</li>
+    <li><strong>tbody</strong>:表体区(放数据行)</li>
+    <li><strong>tfoot</strong>:表尾区(放合计、统计等)</li>
+  </ul>
+
+  <h3>示例:带合计行的成绩单</h3>
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>姓名</th>
+        <th>语文</th>
+        <th>数学</th>
+        <th>英语</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>张三</td>
+        <td>85</td>
+        <td>92</td>
+        <td>78</td>
+      </tr>
+      <tr>
+        <td>李四</td>
+        <td>90</td>
+        <td>88</td>
+        <td>95</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td><strong>平均分</strong></td>
+        <td>87.5</td>
+        <td>90</td>
+        <td>86.5</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 3. 合并单元格 colspan / rowspan -->
+  <!-- ============================================ -->
+  <h2>3. 合并单元格</h2>
+  <p>两个属性,一句话记住:</p>
+  <ul>
+    <li><strong>colspan="N"</strong>:横向合并(占 N 列)</li>
+    <li><strong>rowspan="N"</strong>:纵向合并(占 N 行)</li>
+  </ul>
+
+  <h3>示例 1:colspan 跨列(合并表头)</h3>
+  <table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+      <th rowspan="2">姓名</th>
+      <th colspan="3">成绩</th>
+    </tr>
+    <tr>
+      <th>语文</th>
+      <th>数学</th>
+      <th>英语</th>
+    </tr>
+    <tr>
+      <td>张三</td>
+      <td>85</td>
+      <td>92</td>
+      <td>78</td>
+    </tr>
+  </table>
+
+  <h3>示例 2:rowspan 跨行</h3>
+  <table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+      <th>年级</th>
+      <th>班级</th>
+      <th>人数</th>
+    </tr>
+    <tr>
+      <td rowspan="2">高三</td>
+      <td>1 班</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <td>2 班</td>
+      <td>48</td>
+    </tr>
+    <tr>
+      <td rowspan="2">高二</td>
+      <td>1 班</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <td>2 班</td>
+      <td>46</td>
+    </tr>
+  </table>
+
+  <p style="color:red;font-size:13px;">
+    ⚠️ 合并后别忘了删掉「被合并掉」的单元格 td/th。
+    比如 colspan="2" 跨了两列,那一行后面就要少写 1 个 td;同理 rowspan 也是。
+  </p>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 4. 练习区:做一张「前端学习计划表」 -->
+  <!-- ============================================ -->
+  <h2>4. 练习区:做一张「前端学习计划表」</h2>
+
+  <p><strong>任务</strong>:在下方写一张表格,参考下面的结构(可以改内容):</p>
+
+  <table border="1" cellpadding="8" cellspacing="0" style="margin:12px 0;">
+    <thead>
+      <tr>
+        <th>阶段</th>
+        <th>学习内容</th>
+        <th>预计时长</th>
+        <th>完成状态</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td rowspan="3">基础期</td>
+        <td>HTML5 + CSS3</td>
+        <td>3 周</td>
+        <td>进行中</td>
+      </tr>
+      <tr>
+        <td>JavaScript 基础</td>
+        <td>2 周</td>
+        <td>未开始</td>
+      </tr>
+      <tr>
+        <td>浏览器与调试</td>
+        <td>0.5 周</td>
+        <td>未开始</td>
+      </tr>
+      <tr>
+        <td rowspan="3">进阶期</td>
+        <td>ES6+ 新特性</td>
+        <td>1.5 周</td>
+        <td>未开始</td>
+      </tr>
+      <tr>
+        <td>React 核心</td>
+        <td>3.5 周</td>
+        <td>未开始</td>
+      </tr>
+      <tr>
+        <td>工程化基础</td>
+        <td>0.5 周</td>
+        <td>未开始</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2" style="text-align:right;"><strong>合计</strong></td>
+        <td colspan="2"><strong>约 12 周</strong></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <p><strong>要求</strong>:</p>
+  <ul>
+    <li>✅ 必须用 <code>table</code> / <code>tr</code> / <code>th</code> / <code>td</code></li>
+    <li>✅ 包含 <code>thead</code> / <code>tbody</code> / <code>tfoot</code> 三块</li>
+    <li>✅ 有 1 处 <code>rowspan</code> 合并行</li>
+    <li>✅ 有 1 处 <code>colspan</code> 合并列</li>
+    <li>✅ 数据不少于 5 行</li>
+  </ul>
+
+  <!-- ========== 动手区:在下面写你的学习计划表 ========== -->
+
+  <h3>👩‍💻 我的前端学习计划表</h3>
+  <!-- 在下面的空 table 里填数据 -->
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Phase</th>
+        <th>Learning Content</th>
+        <th>Estimated Duration</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td rowspan="3">Foundation</td>
+        <td>HTML5 + CSS3</td>
+        <td>3 weeks</td>
+        <td>In Progress</td>
+      </tr>
+      <tr>
+        <td>JavaScript Foundamentals</td>
+        <td>2 weeks</td>
+        <td>Not Started</td>
+      </tr>
+      <tr>
+        <td>Browser and Debugging</td>
+        <td>0.5 weeks</td>
+        <td>Not Started</td>
+      </tr>
+      <tr>
+        <td rowspan="3">Advanced</td>
+        <td>ES6+ + New Features</td>
+        <td>1.5 weeks</td>
+        <td>Not Started</td>
+      </tr>
+      <tr>
+        <td>React Core</td>
+        <td>3.5 weeks</td>
+        <td>Not Started</td>
+      </tr>
+      <tr>
+        <td>Engineering Basics</td>
+        <td>0.5 weeks</td>
+        <td>Not Started</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2" style="text-align:center;"><strong>Total</strong></td>
+        <td colspan="2" style="text-align:center;"><strong>~ 12 weeks</strong></td>
+      </tr>
+    </tfoot>
+  </table>
+
+</body>
+</html>

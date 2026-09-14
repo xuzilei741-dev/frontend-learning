@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 4 · 图片与多媒体练习</title>
+</head>
+<body>
+
+  <!-- ============================================ -->
+  <!-- 1. 图片 img 标签 -->
+  <!-- ============================================ -->
+  <h2>1. 图片 img 标签</h2>
+  <p>img 是自闭合标签,常用属性有:</p>
+  <ul>
+    <li><strong>src</strong>:图片地址(可以是本地路径或网络 URL)</li>
+    <li><strong>alt</strong>:图片加载失败时显示的替代文字(必须加,给盲人/爬虫看)</li>
+    <li><strong>width / height</strong>:设置图片宽高(像素或百分比)</li>
+  </ul>
+
+  <!-- 1.1 网络图片 -->
+  <h3>1.1 网络图片(src 用网址)</h3>
+  <img src="https://picsum.photos/300/200" alt="随机风景图" width="300" height="200">
+
+  <!-- 1.2 本地图片(需要在同目录下放一张图片) -->
+  <h3>1.2 本地图片(src 用相对路径)</h3>
+  <!-- 把一张图片放到 week1-html/images/ 文件夹,然后取消下面的注释 -->
+  <!-- <img src="images/demo.jpg" alt="本地示例图片" width="200"> -->
+  <p style="color:gray;font-size:12px;">💡 把一张图片放到 images/ 文件夹,取消上面的注释即可查看。</p>
+
+  <!-- 1.3 宽高控制 -->
+  <h3>1.3 宽高控制</h3>
+  <img src="https://picsum.photos/200" alt="100x100 小图" width="100" height="100">
+  <img src="https://picsum.photos/200" alt="200x200 中图" width="200" height="200">
+  <img src="https://picsum.photos/200" alt="300x300 大图" width="300" height="300">
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 2. 路径概念:相对路径 vs 绝对路径 -->
+  <!-- ============================================ -->
+  <h2>2. 路径概念</h2>
+
+  <h3>2.1 绝对路径</h3>
+  <p>完整的网址,从 http(s) 开头:</p>
+  <code>https://picsum.photos/300/200</code>
+  <p>优点:哪里都能访问;缺点:依赖网络和外部服务器</p>
+
+  <h3>2.2 相对路径</h3>
+  <p>相对于当前 HTML 文件的位置:</p>
+  <ul>
+    <li>同目录文件:<code>images/demo.jpg</code></li>
+    <li>上一级目录:<code>../demo.jpg</code></li>
+    <li>当前目录:<code>./demo.jpg</code>(通常可省略 <code>./</code>)</li>
+  </ul>
+  <p>优点:本地文件可离线访问;缺点:文件位置变了路径要改</p>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 3. 音频 audio 和视频 video(了解) -->
+  <!-- ============================================ -->
+  <h2>3. 音频 audio 和视频 video(了解)</h2>
+
+  <h3>3.1 音频</h3>
+  <!-- <audio src="media/demo.mp3" controls></audio> -->
+  <p style="color:gray;font-size:12px;">需要本地 mp3 文件,取消注释即可使用。controls 属性显示播放控件。</p>
+
+  <h3>3.2 视频</h3>
+  <!-- <video src="media/demo.mp4" controls width="400"></video> -->
+  <p style="color:gray;font-size:12px;">需要本地 mp4 文件,取消注释即可使用。常用属性:controls、width、height、autoplay、loop。</p>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 4. 找网站 Logo 的方法(国内可用) -->
+  <!-- ============================================ -->
+  <h2>4. 找网站 Logo 的方法(国内可用)</h2>
+
+  <p>推荐方案:favicon.cccyun.cc(国内可用,直接替换域名即可)</p>
+  <code>https://favicon.cccyun.cc/baidu.com</code>
+
+  <p>示例:</p>
+  <ul>
+    <li>百度: <code>https://favicon.cccyun.cc/baidu.com</code></li>
+    <li>GitHub: <code>https://favicon.cccyun.cc/github.com</code></li>
+    <li>DeepSeek: <code>https://favicon.cccyun.cc/deepseek.com</code></li>
+    <li>淘宝: <code>https://favicon.cccyun.cc/taobao.com</code></li>
+  </ul>
+
+  <p>备用方案(网站自带):在域名后面加 <code>/favicon.ico</code></p>
+  <code>https://www.baidu.com/favicon.ico</code>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 5. 练习区:给收藏夹加网站 Logo -->
+  <!-- ============================================ -->
+  <h2>5. 练习区:给收藏夹加 Logo</h2>
+
+  <p><strong>任务</strong>:打开 <code>day3-list-link.html</code>,在每个 li 的 a 标签内部加上 img 标签,让链接前面显示一个小图标。</p>
+
+  <p>示例代码:</p>
+  <pre style="background:#f5f5f5;padding:12px;border-radius:4px;font-size:13px;overflow-x:auto;">
+<li><a href="https://www.baidu.com" target="_blank">
+  <img src="https://favicon.cccyun.cc/baidu.com" alt="百度" width="20">
+  百度一下
+</a></li></pre>
+
+  <p><strong>要求</strong>:</p>
+  <ul>
+    <li>✅ 至少给 3 个网站加上 Logo 图片</li>
+    <li>✅ 图片宽度控制在 16~24px</li>
+    <li>✅ 每个 img 都要有 alt 属性</li>
+    <li>✅ 修改完后保存 → 浏览器 F5 刷新 → 检查 Logo 是否正确显示</li>
+  </ul>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- 6. 任务向导(最末尾) -->
+  <!-- ============================================ -->
+  <h2>📋 任务向导(按步骤完成 Day 4)</h2>
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f6f7f9;
+      --surface-muted: #eef0f3;
+      --border: #d9dde3;
+      --text: #1f2328;
+      --text-muted: #6b7280;
+      --brand: #7c5cff;
+      --brand-soft: #efeaff;
+      --accent: #00b886;
+      --radius: 8px;
+      --radius-card: 12px;
+      --radius-full: 999px;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-mono: "SF Mono", Consolas, monospace;
+    }
+    .w-root {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 20px;
+      font: 14px/20px var(--font-sans);
+      color: var(--text);
+      max-width: 800px;
+      margin: 20px 0;
+    }
+    .w-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border);
+    }
+    .w-title { font: 600 16px/24px var(--font-sans); }
+    .w-progress { font: 12px/18px var(--font-mono); color: var(--text-muted);
+      background: var(--surface-muted); padding: 4px 12px; border-radius: var(--radius-full); }
+    .w-step { display: none; animation: w-fade 0.2s ease; }
+    .w-step.active { display: block; }
+    @keyframes w-fade { from { opacity:0; transform:translateY(4px);} to { opacity:1; transform:translateY(0);} }
+    .w-step-num {
+      display:inline-block; width:22px; height:22px; line-height:22px; text-align:center;
+      background:var(--brand); color:var(--bg); border-radius:var(--radius-full);
+      font:600 12px/22px var(--font-mono); margin-right:8px;
+    }
+    .w-step-title { font:600 16px/24px var(--font-sans); margin-bottom:8px; }
+    .w-desc { color:var(--text-muted); margin-bottom:12px; line-height:20px; }
+    .w-code {
+      background:var(--surface-muted); border:1px solid var(--border); border-radius:var(--radius);
+      padding:12px 16px; font:13px/20px var(--font-mono); color:var(--text);
+      margin:8px 0 16px; white-space:pre-wrap; overflow-x:auto;
+    }
+    .w-code .c-tag { color: var(--brand); }
+    .w-code .c-attr { color: var(--accent); }
+    .w-check { display:flex; align-items:center; gap:8px; padding:8px 0; color:var(--text-muted); cursor:pointer; user-select:none;}
+    .w-check input { width:16px; height:16px; accent-color:var(--brand); cursor:pointer; }
+    .w-check.done { color:var(--accent); }
+    .w-nav { display:flex; justify-content:space-between; margin-top:16px; padding-top:16px; border-top:1px solid var(--border); }
+    .w-btn {
+      padding:8px 16px; border:1px solid var(--border); background:var(--surface-muted);
+      color:var(--text); border-radius:var(--radius); font:500 14px/20px var(--font-sans);
+      cursor:pointer; transition:all 0.15s;
+    }
+    .w-btn:hover:not(:disabled) { border-color:var(--brand); color:var(--brand); }
+    .w-btn:disabled { opacity:0.4; cursor:not-allowed; }
+    .w-btn.primary { background:var(--brand); color:var(--bg); border-color:var(--brand); }
+    .w-btn.primary:hover:not(:disabled) { opacity:0.9; color:var(--bg); }
+    .w-tip {
+      background:var(--brand-soft); border-left:3px solid var(--brand);
+      padding:12px 16px; border-radius:var(--radius);
+      font:12px/18px var(--font-sans); color:var(--text); margin:12px 0;
+    }
+  </style>
+
+  <div class="w-root" id="wizard">
+    <div class="w-header">
+      <span class="w-title">Day 4 · 图片与多媒体任务向导</span>
+      <span class="w-progress" id="w-progress">1 / 5</span>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="w-step active" data-step="1">
+      <div class="w-step-title"><span class="w-step-num">1</span>图片 img 基础</div>
+      <div class="w-desc">阅读上方 1~4 节内容,理解 img 三个核心属性:src(地址)、alt(替代文字)、width/height(尺寸)。</div>
+      <div class="w-code"><span class="c-tag">&lt;img</span> <span class="c-attr">src</span>="图片地址" <span class="c-attr">alt</span>="替代文字" <span class="c-attr">width</span>="300"<span class="c-tag">></span></div>
+      <div class="w-tip">⚠️ alt 属性必须加,图片加载失败时显示这段文字,也是给屏幕阅读器和搜索引擎用的。</div>
+      <label class="w-check"><input type="checkbox"><span>我理解了 img 三个核心属性</span></label>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="w-step" data-step="2">
+      <div class="w-step-title"><span class="w-step-num">2</span>路径:相对路径 vs 绝对路径</div>
+      <div class="w-desc">阅读上方「2. 路径概念」,搞懂两种路径什么时候用。</div>
+      <div class="w-code">绝对路径:https://picsum.photos/300/200
+相对路径:
+  images/demo.jpg   ← 同级目录下的 images 文件夹
+  ../demo.jpg       ← 上一级目录
+  ./demo.jpg        ← 当前目录(./ 可省略)</div>
+      <div class="w-tip">💡 记一个原则:项目内部资源 → 相对路径;引用外部网站资源 → 绝对路径。</div>
+      <label class="w-check"><input type="checkbox"><span>我搞清楚了相对路径和绝对路径</span></label>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="w-step" data-step="3">
+      <div class="w-step-title"><span class="w-step-num">3</span>找网站 Logo 的方法</div>
+      <div class="w-desc">阅读上方「4. 找网站 Logo」,国内推荐 favicon.cccyun.cc,替换域名即可拿到任意网站的 Logo。</div>
+      <div class="w-code">格式:https://favicon.cccyun.cc/域名
+示例:
+  https://favicon.cccyun.cc/baidu.com     ← 百度
+  https://favicon.cccyun.cc/github.com    ← GitHub
+  https://favicon.cccyun.cc/deepseek.com  ← DeepSeek</div>
+      <div class="w-tip">📌 如果 cc yun 服务不可用,备用方案:直接访问网站根目录的 favicon.ico,例如 https://www.baidu.com/favicon.ico</div>
+      <label class="w-check"><input type="checkbox"><span>我学会了用 favicon.cccyun.cc 找 Logo</span></label>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="w-step" data-step="4">
+      <div class="w-step-title"><span class="w-step-num">4</span>动手:给 Day 3 收藏夹加 Logo</div>
+      <div class="w-desc">打开 day3-list-link.html,在每个 li 的 a 标签内部加上 img,让每个链接前显示小图标。</div>
+      <div class="w-code">修改前:
+  &lt;li&gt;&lt;a href="https://www.baidu.com"&gt;百度一下&lt;/a&gt;&lt;/li&gt;
+
+修改后:
+  &lt;li&gt;&lt;a href="https://www.baidu.com" target="_blank"&gt;
+    &lt;img src="https://favicon.cccyun.cc/baidu.com"
+         alt="百度" width="20"&gt;
+    百度一下
+  &lt;/a&gt;&lt;/li&gt;</div>
+      <div class="w-tip">💡 至少给 3 个网站加 Logo,图片宽度建议 16~24px,太大不好看。</div>
+      <label class="w-check"><input type="checkbox"><span>我给收藏夹加了至少 3 个 Logo</span></label>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="w-step" data-step="5">
+      <div class="w-step-title"><span class="w-step-num">5</span>保存 → 刷新 → Git 提交</div>
+      <div class="w-desc">Ctrl+S 保存 day3-list-link.html,浏览器 F5 刷新,检查 Logo 是否正确显示。然后 Git 提交。</div>
+      <div class="w-code">cd e:\AI\trae\work\6a8bd860fc6c6fe01b50fbc3\week1-html
+git add .
+git commit -m "day4 图片与多媒体练习"</div>
+      <div class="w-tip">✅ 如果 Logo 显示不出来:① 检查域名拼写 ② 试试换别的网站域名 ③ 用备用方案 /favicon.ico</div>
+      <label class="w-check"><input type="checkbox"><span>我已完成 Day 4 并提交代码</span></label>
+    </div>
+
+    <div class="w-nav">
+      <button class="w-btn" id="w-prev" disabled>← 上一步</button>
+      <button class="w-btn primary" id="w-next">下一步 →</button>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const root = document.getElementById('wizard');
+      if (!root) return;
+      const steps = root.querySelectorAll('.w-step');
+      const progress = root.querySelector('#w-progress');
+      const prevBtn = root.querySelector('#w-prev');
+      const nextBtn = root.querySelector('#w-next');
+      let current = 1;
+      const total = steps.length;
+      function show(step) {
+        steps.forEach(s => s.classList.toggle('active', parseInt(s.dataset.step) === step));
+        progress.textContent = step + ' / ' + total;
+        prevBtn.disabled = step === 1;
+        nextBtn.textContent = step === total ? '完成 ✓' : '下一步 →';
+      }
+      // 复选框完成样式
+      root.querySelectorAll('.w-check input').forEach(cb => {
+        cb.addEventListener('change', () => {
+          cb.closest('.w-check').classList.toggle('done', cb.checked);
+        });
+      });
+      prevBtn.addEventListener('click', () => { if (current > 1) { current--; show(current); } });
+      nextBtn.addEventListener('click', () => { if (current < total) { current++; show(current); } });
+    })();
+  </script>
+
+</body>
+</html>
