@@ -1,6 +1,6 @@
 # 前端开发学习进度
 
-> 起点:2026-08-24  |  最近更新:2026-09-15
+> 起点:2026-08-24  |  最近更新:2026-09-18
 > 学习路径:HTML 基础 → CSS 基础 → React 框架
 > GitHub:https://github.com/xuzilei741-dev/frontend-learning
 
@@ -40,8 +40,8 @@
 
 | Day | 主题 | 知识点 | 状态 |
 |---|---|---|---|
-| 8 | CSS 入门 + 选择器 | 标签 / class / id / 后代 / 子代 / 群组 / 伪类:hover | 🔄 练习中 |
-| 9 | 盒模型 | margin / padding / border / box-sizing | ⏳ 待学 |
+| 8 | CSS 入门 + 选择器 | 标签 / class / id / 后代 / 子代 / 群组 / 伪类:hover | ✅ |
+| 9 | 盒模型 | margin / padding / border / box-sizing / margin 合并 / 内联 vs 块级 | ✅ |
 | 10 | 颜色与字体 | color / background / font / 文本样式 | ⏳ 待学 |
 | 11 | Flex 布局 | flex-direction / justify-content / align-items | ⏳ 待学 |
 | 12 | Grid 布局 | grid-template / gap / 区域命名 | ⏳ 待学 |
