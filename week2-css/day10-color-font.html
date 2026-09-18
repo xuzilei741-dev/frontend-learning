@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 10 · 颜色与字体</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      /* ===== 页面基础 ===== */
+      .page {
+        background-color: #fafafa;
+        font-size: 16px;
+        line-height: 1.6;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+        color: #1f2328;
+      }
+      .container {
+        width: 880px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 32px 40px;
+      }
+
+      /* ===== 标题 ===== */
+      .section-title {
+        font-size: 24px;
+        color: #1f2328;
+        border-left: 5px solid #7c5cff;
+        padding-left: 12px;
+        margin: 32px 0 16px;
+      }
+      .sub-title {
+        font-size: 18px;
+        color: #2563eb;
+        margin: 20px 0 10px;
+      }
+
+      /* ===== 正文段落 ===== */
+      .body-text {
+        color: #4b5563;
+        margin: 12px 0;
+      }
+      .body-text code {
+        background: #f3f4f6;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.9em;
+        color: #dc2626;
+      }
+
+      /* ===== 提示框 ===== */
+      .tip-box {
+        background: #fef3c7;
+        padding: 12px 16px;
+        border-left: 4px solid #f59e0b;
+        margin: 16px 0;
+        border-radius: 0 6px 6px 0;
+      }
+      .warn-box {
+        background: #fee2e2;
+        padding: 12px 16px;
+        border-left: 4px solid #dc2626;
+        margin: 16px 0;
+        border-radius: 0 6px 6px 0;
+      }
+      .success-box {
+        background: #f0fdf4;
+        padding: 12px 16px;
+        border-left: 4px solid #16a34a;
+        margin: 16px 0;
+        border-radius: 0 6px 6px 0;
+      }
+
+      /* ===== 颜色演示 ===== */
+      .color-demo {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 16px 0;
+      }
+      .color-swatch {
+        width: 120px;
+        height: 60px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+        color: #fff;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+      .swatch-hex {
+        background: #2563eb;
+      }
+      .swatch-rgb {
+        background: rgb(37, 99, 235);
+      }
+      .swatch-rgba {
+        background: rgba(37, 99, 235, 0.5);
+        color: #1f2328;
+        text-shadow: none;
+      }
+      .swatch-hsl {
+        background: hsl(217, 83%, 53%);
+      }
+      .swatch-hsla {
+        background: hsla(217, 83%, 53%, 0.5);
+        color: #1f2328;
+        text-shadow: none;
+      }
+      .swatch-keyword {
+        background: coral;
+        color: #fff;
+      }
+
+      /* ===== 字体演示 ===== */
+      .font-serif {
+        font-family: "Georgia", "Times New Roman", serif;
+      }
+      .font-mono {
+        font-family: "SF Mono", Consolas, Monaco, monospace;
+      }
+      .font-cursive {
+        font-family: "Brush Script MT", cursive;
+      }
+      .font-system {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+      }
+
+      /* ===== 字重演示 ===== */
+      .weight-300 {
+        font-weight: 300;
+      }
+      .weight-400 {
+        font-weight: 400;
+      }
+      .weight-700 {
+        font-weight: 700;
+      }
+      .weight-900 {
+        font-weight: 900;
+      }
+
+      /* ===== 文本样式演示 ===== */
+      .text-left {
+        text-align: left;
+      }
+      .text-center {
+        text-align: center;
+      }
+      .text-right {
+        text-align: right;
+      }
+      .text-justify {
+        text-align: justify;
+      }
+      .text-underline {
+        text-decoration: underline;
+      }
+      .text-line-through {
+        text-decoration: line-through;
+      }
+      .text-uppercase {
+        text-transform: uppercase;
+      }
+      .text-indent {
+        text-indent: 2em;
+      }
+      .text-spacing {
+        letter-spacing: 2px;
+      }
+
+      /* ===== 代码块 ===== */
+      .code-block {
+        background: #1f2937;
+        color: #e5e7eb;
+        padding: 16px;
+        border-radius: 6px;
+        font-family: "SF Mono", Consolas, Monaco, monospace;
+        font-size: 13px;
+        line-height: 1.6;
+        overflow-x: auto;
+        margin: 12px 0;
+      }
+      .c-key {
+        color: #fbbf24;
+      }
+      .c-prop {
+        color: #93c5fd;
+      }
+      .c-val {
+        color: #86efac;
+      }
+      .c-com {
+        color: #6b7280;
+      }
+
+      /* ===== 对比表格 ===== */
+      .compare-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0;
+        font-size: 14px;
+      }
+      .compare-table th,
+      .compare-table td {
+        border: 1px solid #d1d5db;
+        padding: 10px 12px;
+        text-align: left;
+        vertical-align: top;
+      }
+      .compare-table th {
+        background: #f3f4f6;
+        color: #1f2328;
+      }
+
+      /* ===== 动手区容器 ===== */
+      .practice-area {
+        background: #f9fafb;
+        border: 2px dashed #9ca3af;
+        border-radius: 8px;
+        padding: 24px;
+        margin: 20px 0;
+      }
+      .practice-area-title {
+        font-size: 16px;
+        color: #7c5cff;
+        font-weight: bold;
+        margin-bottom: 12px;
+      }
+
+      /* ===== 动手区:你要在下面写代码 ===== */
+
+      /* === ↓↓ 动手区:从这里开始写 ↓↓ === */
+
+      /* 1. 文章容器:背景色 + 字体栈 */
+      .my-article {
+        /* 你的代码写在这里 */
+        background: #fff;
+        color: #1f2328;
+        font-size: 16px;
+        line-height: 1.7;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei",
+          sans-serif;
+      }
+
+      /* 2. 文章标题:颜色 + 字号 + 字重 */
+      .my-title {
+        /* 你的代码写在这里 */
+        color: #1f2328;
+        font-size: 28px;
+        font-weight: bold;
+        text-align: center;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+      }
+
+      /* 3. 副标题:颜色 + 字号 */
+      .my-subtitle {
+        /* 你的代码写在这里 */
+        color: #2563eb;
+        font-size: 20px;
+        font-weight: 600;
+        border-left: 4px solid #2563eb;
+        padding-left: 12px;
+        margin: 20px 0;
+      }
+
+      /* 4. 段落:颜色 + 行高 + 首行缩进 */
+      .my-paragraph {
+        /* 你的代码写在这里 */
+        color: #4b5563;
+        line-height: 1.8;
+        text-indent: 2em;
+        margin: 16px 0;
+      }
+
+      /* 5. 强调文字:背景 + padding + 圆角 + 字重 */
+      .my-highlight {
+        /* 你的代码写在这里 */
+        background: #fef3c7;
+        color: #92400e;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: bold;
+      }
+
+      /* 6. 分隔线:用 background 画线(不用 border) */
+      .my-divider {
+        /* 你的代码写在这里 */
+        height: 1px;
+        background: #e5e7eb;
+        margin: 24px 0;
+        border: none;
+      }
+
+      /* 7. 引用块:用 rgba 半透明背景 + 左边框 */
+      .my-quote {
+        /* 你的代码写在这里 */
+        background: rgba(124, 92, 255, 0.08);
+        padding-left: 16px;
+        border-left: 3px solid #7c5cff;
+        font-style: italic;
+        color: #6b7280;
+        margin: 16px 0;
+      }
+
+      /* 8. 引用块:用 rgba 半透明背景 + 左边框(上面已声明,这里留空避免重复) */
+    </style>
+  </head>
+  <body class="page">
+    <div class="container">
+      <h1 class="section-title" style="border-left-color: #7c5cff">
+        Day 10 · 颜色与字体
+      </h1>
+      <p class="body-text">
+        颜色和字体决定了页面的「气质」。今天学完,你就能把一篇干巴巴的 HTML
+        变成有设计感的文章。
+      </p>
+
+      <!-- ============================================ -->
+      <!-- 1. 颜色表示法 -->
+      <!-- ============================================ -->
+      <h2 class="section-title">1. 颜色表示法(5 种)</h2>
+      <p class="body-text">CSS 里表示颜色有 5 种主流写法,效果一样,场景不同:</p>
+
+      <div class="color-demo">
+        <div class="color-swatch swatch-hex">#2563eb<br />HEX</div>
+        <div class="color-swatch swatch-rgb">rgb(37,99,235)<br />RGB</div>
+        <div class="color-swatch swatch-rgba">
+          rgba(...,0.5)<br />RGBA 半透明
+        </div>
+        <div class="color-swatch swatch-hsl">hsl(217,83%,53%)<br />HSL</div>
+        <div class="color-swatch swatch-hsla">
+          hsla(...,0.5)<br />HSLA 半透明
+        </div>
+        <div class="color-swatch swatch-keyword">coral<br />关键字</div>
+      </div>
+
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>写法</th>
+            <th>示例</th>
+            <th>特点</th>
+            <th>推荐场景</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>HEX(十六进制)</td>
+            <td><code>#2563eb</code></td>
+            <td>最短、最常用</td>
+            <td>⭐⭐⭐⭐⭐ 日常首选</td>
+          </tr>
+          <tr>
+            <td>RGB</td>
+            <td><code>rgb(37, 99, 235)</code></td>
+            <td>数值直观,可读性强</td>
+            <td>⭐⭐⭐ 偶尔用</td>
+          </tr>
+          <tr>
+            <td>RGBA</td>
+            <td><code>rgba(37, 99, 235, 0.5)</code></td>
+            <td>第 4 个值是透明度 0~1</td>
+            <td>⭐⭐⭐⭐ 半透明背景必备</td>
+          </tr>
+          <tr>
+            <td>HSL</td>
+            <td><code>hsl(217, 83%, 53%)</code></td>
+            <td>色相/饱和度/明度,调色直观</td>
+            <td>⭐⭐⭐ 需要配色时</td>
+          </tr>
+          <tr>
+            <td>颜色关键字</td>
+            <td><code>coral</code> / <code>red</code></td>
+            <td>140+ 个命名颜色</td>
+            <td>⭐ 快速 demo</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="tip-box">
+        <strong>💡 实战建议:</strong><br />
+        ① 主色用 <strong>HEX</strong>(最短)<br />
+        ② 需要半透明用 <strong>RGBA</strong>(如背景蒙层)<br />
+        ③ 需要调色板(同色系不同明度)用 <strong>HSL</strong>,改 L 值就行<br />
+        ④ <strong>不要</strong>用关键字(red/blue),不专业且颜色有限
+      </div>
+
+      <!-- ============================================ -->
+      <!-- 2. background 属性族 -->
+      <!-- ============================================ -->
+      <h2 class="section-title">2. background 属性族</h2>
+      <p class="body-text">
+        <code>background</code>
+        不只是背景色,它是一组属性,常用 6 个:
+      </p>
+
+      <pre class="code-block"><span class="c-prop">.box</span> {
+  <span class="c-key">background-color</span>: <span class="c-val">#2563eb</span>;              <span class="c-com">/* 背景色 */</span>
+  <span class="c-key">background-image</span>: <span class="c-val">url('bg.jpg')</span>;          <span class="c-com">/* 背景图 */</span>
+  <span class="c-key">background-repeat</span>: <span class="c-val">no-repeat</span>;            <span class="c-com">/* 不重复平铺 */</span>
+  <span class="c-key">background-size</span>: <span class="c-val">cover</span>;                 <span class="c-com">/* 覆盖整个容器 */</span>
+  <span class="c-key">background-position</span>: <span class="c-val">center</span>;           <span class="c-com">/* 居中显示 */</span>
+  <span class="c-key">background-attachment</span>: <span class="c-val">fixed</span>;          <span class="c-com">/* 滚动时不动(视差) */</span>
+}
+
+<span class="c-com">/* 简写:一行搞定(顺序无要求,color 要在 image 后面) */</span>
+<span class="c-prop">.box</span> {
+  <span class="c-key">background</span>: <span class="c-val">#2563eb url('bg.jpg') no-repeat center/cover</span>;
+}</pre>
+
+      <h3 class="sub-title">2.1 background-size 三个值对比</h3>
+      <ul class="body-text">
+        <li><code>cover</code>:覆盖容器(可能裁剪图片) — 最常用</li>
+        <li><code>contain</code>:完整显示(可能留白)</li>
+        <li><code>100px 100px</code> / <code>100% 100%</code>:精确尺寸</li>
+      </ul>
+
+      <!-- ============================================ -->
+      <!-- 3. font 属性族 -->
+      <!-- ============================================ -->
+      <h2 class="section-title">3. font 属性族</h2>
+      <p class="body-text">
+        <code>font</code>
+        也是一组属性,决定文字长什么样:
+      </p>
+
+      <pre class="code-block"><span class="c-prop">.text</span> {
+  <span class="c-key">font-family</span>: <span class="c-val">-apple-system, "PingFang SC", sans-serif</span>;
+  <span class="c-key">font-size</span>: <span class="c-val">16px</span>;           <span class="c-com">/* 字号 */</span>
+  <span class="c-key">font-weight</span>: <span class="c-val">400</span>;         <span class="c-com">/* 字重:300细/400常规/700粗/900特粗 */</span>
+  <span class="c-key">font-style</span>: <span class="c-val">italic</span>;        <span class="c-com">/* 斜体 */</span>
+  <span class="c-key">line-height</span>: <span class="c-val">1.6</span>;         <span class="c-com">/* 行高(无单位 = 字号倍数) */</span>
+}
+
+<span class="c-com">/* 简写:顺序固定 size/line-height 必须挨着,family 放最后 */</span>
+<span class="c-prop">.text</span> {
+  <span class="c-key">font</span>: <span class="c-val">italic 700 16px/1.6 "PingFang SC", sans-serif</span>;
+}</pre>
+
+      <h3 class="sub-title">3.1 系统字体栈(必背!)</h3>
+      <p class="body-text">
+        不同系统默认字体不同,用「字体栈」让每个平台都用最佳字体:
+      </p>
+
+      <pre
+        class="code-block"
+      ><span class="c-com">/* 苹果 / Windows / Linux 通吃,最推荐的写法 */</span>
+<span class="c-key">font-family</span>: <span class="c-val">-apple-system, BlinkMacSystemFont, "PingFang SC",
+  "Microsoft YaHei", sans-serif</span>;
+
+<span class="c-com">/* -apple-system:Mac/iOS 系统字体(San Francisco) */</span>
+<span class="c-com">/* BlinkMacSystemFont:Chrome on Mac */</span>
+<span class="c-com">/* "PingFang SC":苹果中文(萍方) */</span>
+<span class="c-com">/* "Microsoft YaHei":Windows 中文(微软雅黑) */</span>
+<span class="c-com">/* sans-serif:兜底无衬线字体 */</span></pre>
+
+      <div class="warn-box">
+        <strong>⚠️ 重要:</strong>中文字体名要加<strong>双引号</strong>(<code
+          >"PingFang SC"</code
+        >),英文单词不用(<code>sans-serif</code>)。否则某些浏览器不识别。
+      </div>
+
+      <h3 class="sub-title">3.2 font-weight 字重对比</h3>
+      <p class="body-text" style="font-size: 18px">
+        <span class="weight-300">300 Light 细</span> ·
+        <span class="weight-400">400 Regular 常规</span> ·
+        <span class="weight-700">700 Bold 粗</span> ·
+        <span class="weight-900">900 Black 特粗</span>
+      </p>
+      <p class="body-text">
+        注意:不是所有字体都有 9 个字重。系统字体通常只有
+        400/700,要更多字重需引入 Web 字体(如 Google Fonts)。
+      </p>
+
+      <!-- ============================================ -->
+      <!-- 4. 文本样式属性 -->
+      <!-- ============================================ -->
+      <h2 class="section-title">4. 文本样式属性</h2>
+      <p class="body-text">
+        <code>text-*</code>
+        系列控制文字的排版样式:
+      </p>
+
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>属性</th>
+            <th>常用值</th>
+            <th>作用</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>text-align</code></td>
+            <td>left / center / right / justify</td>
+            <td>水平对齐</td>
+          </tr>
+          <tr>
+            <td><code>text-decoration</code></td>
+            <td>underline / line-through / none</td>
+            <td>下划线/删除线</td>
+          </tr>
+          <tr>
+            <td><code>text-indent</code></td>
+            <td>2em / 32px</td>
+            <td>首行缩进(中文文章用)</td>
+          </tr>
+          <tr>
+            <td><code>text-transform</code></td>
+            <td>uppercase / lowercase / capitalize</td>
+            <td>大小写转换(英文)</td>
+          </tr>
+          <tr>
+            <td><code>letter-spacing</code></td>
+            <td>2px / -0.5px</td>
+            <td>字符间距(标题常加)</td>
+          </tr>
+          <tr>
+            <td><code>word-spacing</code></td>
+            <td>4px</td>
+            <td>单词间距(英文)</td>
+          </tr>
+          <tr>
+            <td><code>white-space</code></td>
+            <td>nowrap / pre / pre-wrap</td>
+            <td>换行规则</td>
+          </tr>
+          <tr>
+            <td><code>text-overflow</code></td>
+            <td>ellipsis(配合 overflow:hidden)</td>
+            <td>文本溢出省略号</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub-title">4.1 text-align 四种对齐对比</h3>
+      <p class="body-text text-left">这行左对齐(默认)←</p>
+      <p class="body-text text-center">这行居中对齐</p>
+      <p class="body-text text-right">这行右对齐→</p>
+      <p class="body-text text-justify">
+        这行两端对齐:每行都会被拉伸让左右两边都对齐,报纸排版常用。中文效果不明显,英文段落效果最明显。这行两端对齐:每行都会被拉伸让左右两边都对齐。
+      </p>
+
+      <h3 class="sub-title">4.2 装饰与转换</h3>
+      <p class="body-text">
+        <span class="text-underline">下划线</span> ·
+        <span class="text-line-through">删除线</span> ·
+        <span class="text-uppercase">uppercase 转大写</span>
+      </p>
+      <p class="body-text text-indent">
+        这段首行缩进了
+        2em(两个字符宽度),中文文章标准排版。你看开头是不是空了两个字符?这是中文文章的标准写法。
+      </p>
+      <p class="body-text text-spacing">
+        这段加了字符间距 letter-spacing:2px,标题常用这种处理,看起来更精致。
+      </p>
+
+      <!-- ============================================ -->
+      <!-- 5. 综合练习 -->
+      <!-- ============================================ -->
+      <h2 class="section-title">5. 综合练习:用颜色和字体美化文章</h2>
+      <p class="body-text">
+        在下方动手区,用今天学的颜色 + 字体 + 文本样式,把一篇干巴巴的文章变好看。
+      </p>
+
+      <h3 class="sub-title">要求清单(8 项)</h3>
+      <ul class="body-text">
+        <li>
+          ① <strong>全局加</strong>
+          <code>* { box-sizing: border-box; }</code>(已写好)
+        </li>
+        <li>
+          ② <strong>给 .my-article 加</strong>:背景色 <code>#fff</code>、字体栈
+          <code
+            >-apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft
+            YaHei", sans-serif</code
+          >、字号 <code>16px</code>、行高 <code>1.7</code>、颜色
+          <code>#1f2328</code>
+        </li>
+        <li>
+          ③ <strong>给 .my-title 加</strong>:颜色 <code>#1f2328</code>、字号
+          <code>28px</code>、字重 <code>700</code>、文字居中、字符间距
+          <code>1px</code>、底部 margin <code>8px</code>
+        </li>
+        <li>
+          ④ <strong>给 .my-subtitle 加</strong>:颜色 <code>#2563eb</code>、字号
+          <code>20px</code>、字重 <code>600</code>、左边框
+          <code>4px solid #2563eb</code>、左 padding <code>12px</code>、上下
+          margin
+          <code>20px</code>
+        </li>
+        <li>
+          ⑤ <strong>给 .my-paragraph 加</strong>:颜色 <code>#4b5563</code>、行高
+          <code>1.8</code>、首行缩进 <code>2em</code>、上下 margin
+          <code>16px</code>
+        </li>
+        <li>
+          ⑥ <strong>给 .my-highlight 加</strong>:背景 <code>#fef3c7</code>、颜色
+          <code>#92400e</code>、padding <code>2px 8px</code>、圆角
+          <code>4px</code>、字重 <code>700</code>
+        </li>
+        <li>
+          ⑦ <strong>给 .my-divider 加</strong>:用 background 画线(不写 border
+          属性):高度 <code>1px</code>、背景色 <code>#e5e7eb</code>、上下 margin
+          <code>24px</code>、<code>border: none</code>(清掉 hr 默认边框)
+        </li>
+        <li>
+          ⑧ <strong>给 .my-quote 加</strong>:背景
+          <code>rgba(124, 92, 255, 0.08)</code>(紫色半透明)、左 padding
+          <code>16px</code>、左 border <code>3px solid #7c5cff</code>、斜体
+          <code>italic</code>、颜色 <code>#6b7280</code>、上下 margin
+          <code>16px</code>
+        </li>
+      </ul>
+
+      <div class="tip-box">
+        <strong>💡 重点学习:</strong><br />
+        - ⑦ 用 <code>background</code> 画线是常见技巧,比
+        <code>border</code> 更灵活(能做渐变虚线等)<br />
+        - ⑧ 用 <code>rgba</code> 做半透明背景,是卡片 UI 的核心技巧<br />
+        - 字体栈一定要写完整,<strong>不要</strong>只写 <code>"微软雅黑"</code>
+      </div>
+
+      <!-- ========== 动手区 ========== -->
+      <div class="practice-area">
+        <div class="practice-area-title">
+          ✍️ 动手区(在 head 的 style 里写 CSS,这里只放 HTML 结构)
+        </div>
+
+        <article class="my-article">
+          <h1 class="my-title">CSS 颜色与字体入门</h1>
+
+          <h2 class="my-subtitle">为什么颜色很重要</h2>
+          <p class="my-paragraph">
+            颜色是页面的第一印象。好的配色能让用户停留更久,糟糕的配色会让人立刻关闭页面。前端开发中,我们通常从设计稿里取色,用
+            <span class="my-highlight">HEX</span> 表示主色,用
+            <span class="my-highlight">RGBA</span> 做半透明背景。
+          </p>
+
+          <p class="my-paragraph">
+            字体则决定了内容的可读性。系统字体栈能让每个平台的用户都看到最舒服的字体,不需要额外加载
+            Web 字体,性能也最好。
+          </p>
+
+          <div class="my-quote">
+            "好的排版是看不见的,读者只感受到舒服;坏的排版是刺眼的,读者只感觉到难受。"
+            —— 排版格言
+          </div>
+
+          <hr class="my-divider" />
+
+          <p class="my-paragraph">
+            今天学的 5 种颜色表示法、6 个 background 子属性、font 简写、text-*
+            系列,加上系统字体栈,足以应付 80% 的日常样式需求。剩下的 20%
+            在响应式和动画里再学。
+          </p>
+        </article>
+      </div>
+
+      <div class="tip-box">
+        <strong>✅ 完成后:</strong>保存文件,在浏览器打开
+        <code>http://localhost:8080/week2-css/day10-color-font.html</code>
+        看效果,然后跟我说「检查 Day 10」,我会逐项对照清单检查。
+      </div>
+    </div>
+  </body>
+</html>
