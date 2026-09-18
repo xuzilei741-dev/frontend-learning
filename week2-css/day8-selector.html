@@ -1,269 +1,304 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Day 8 · CSS 入门 + 选择器</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 8 · CSS 入门 + 选择器</title>
 
-  <!-- ============================================ -->
-  <!-- 写法 2:内部样式表(style 标签) -->
-  <!-- ============================================ -->
-  <style>
-    .article-title {
-      font-size: 28px;
-      color: #1f2328; /* 接近黑色的深灰 */
-      text-align: center;
-      margin-bottom: 24px;
-    }
-    .article-subtitle {
-      font-size: 20px;
-      color: #2563eb; /* 蓝色文字 */
-      border-left: 4px solid #2563eb;
-      padding-left: 12px;
-    }
-    /* ===== 选择器示例 1:标签选择器 ===== */
-    h4 {
-      color: #2563eb; /* 蓝色文字 */
-    }
+    <!-- ============================================ -->
+    <!-- 写法 2:内部样式表(style 标签) -->
+    <!-- ============================================ -->
+    <style>
+      .article-title {
+        font-size: 28px;
+        color: #1f2328; /* 接近黑色的深灰 */
+        text-align: center;
+        margin-bottom: 24px;
+      }
+      .article-subtitle {
+        font-size: 20px;
+        color: #2563eb; /* 蓝色文字 */
+        border-left: 4px solid #2563eb;
+        padding-left: 12px;
+      }
+      /* ===== 选择器示例 1:标签选择器 ===== */
+      h4 {
+        color: #2563eb; /* 蓝色文字 */
+      }
 
-    .article-text {
-      color: #4b5563;
-      margin: 12px 0;      /* 上下 12px,左右 0 */
-      text-indent: 2em;   /* 首行缩进两个字符 */
-    }
-    .highlight-strong {
-      color: #dc2626;       /* 红色,强调重点 */
-      font-size: 1.05em;    /* 比正文大 5% */
-    }
+      .article-text {
+        color: #4b5563;
+        margin: 12px 0; /* 上下 12px,左右 0 */
+        text-indent: 2em; /* 首行缩进两个字符 */
+      }
+      .highlight-strong {
+        color: #dc2626; /* 红色,强调重点 */
+        font-size: 1.05em; /* 比正文大 5% */
+      }
 
-    /* ===== 选择器示例 2:class 选择器(加点号) ===== */
-    .tip-box {
-      background: #fef3c7;
-      padding: 12px;
-      border-left: 4px solid #f59e0b;
-      margin: 12px 0;
-    }
+      /* ===== 选择器示例 2:class 选择器(加点号) ===== */
+      .tip-box {
+        background: #fef3c7;
+        padding: 12px;
+        border-left: 4px solid #f59e0b;
+        margin: 12px 0;
+      }
 
-    /* ===== 选择器示例 3:id 选择器(加井号) ===== */
-    #unique-box {
-      background: #dbeafe;
-      padding: 12px;
-      border: 2px dashed #3b82f6;
-    }
+      /* ===== 选择器示例 3:id 选择器(加井号) ===== */
+      #unique-box {
+        background: #dbeafe;
+        padding: 12px;
+        border: 2px dashed #3b82f6;
+      }
 
-    /* ===== 选择器示例 4:后代选择器(空格分隔) ===== */
-    .article-demo p {
-      color: #6b7280;
-      line-height: 1.6;
-    }
-    .article-demo p strong {
-      color: #dc2626;
-    }
+      /* ===== 选择器示例 4:后代选择器(空格分隔) ===== */
+      .article-demo p {
+        color: #6b7280;
+        line-height: 1.6;
+      }
+      .article-demo p strong {
+        color: #dc2626;
+      }
 
-    /* ===== 选择器示例 5:群组选择器(逗号分隔) ===== */
-    h5, .demo-label, .note {
-      font-size: 12px;
-      color: #6b7280;
-    }
+      /* ===== 选择器示例 5:群组选择器(逗号分隔) ===== */
+      h5,
+      .demo-label,
+      .note {
+        font-size: 12px;
+        color: #6b7280;
+      }
 
-    /* ===== 选择器示例 6:伪类选择器:hover ===== */
-    .hover-btn {
-      padding: 8px 16px;
-      background: #7c5cff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .hover-btn:hover {
-      background: #5b3dff; /* 鼠标移上去变深色 */
-    }
+      /* ===== 选择器示例 6:伪类选择器:hover ===== */
+      .hover-btn {
+        padding: 8px 16px;
+        background: #7c5cff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .hover-btn:hover {
+        background: #5b3dff; /* 鼠标移上去变深色 */
+      }
 
-    /* ===== 选择器示例 7:组合 > 直接子元素 ===== */
-    .parent > p {
-      border: 1px solid #10b981;
-      padding: 8px;
-    }
+      /* ===== 选择器示例 7:组合 > 直接子元素 ===== */
+      .parent > p {
+        border: 1px solid #10b981;
+        padding: 8px;
+      }
 
-    /* ===== 练习:用 class 选择器给 body 加基础样式 ===== */
-    .page {
-      background-color: #fafafa;
-      font-size: 16px;
-      line-height: 1.6;
-    }
+      /* ===== 练习:用 class 选择器给 body 加基础样式 ===== */
+      .page {
+        background-color: #fafafa;
+        font-size: 16px;
+        line-height: 1.6;
+      }
 
-    /* ===== 练习:文章容器 ===== */
-    .article {
-      width: 800px;
-      margin: 0 auto;   /* 上下 0,左右 auto → 水平居中 */
-      background-color: #fff;
-      padding: 24px;
-    }
+      /* ===== 练习:文章容器 ===== */
+      .article {
+        width: 800px;
+        margin: 0 auto; /* 上下 0,左右 auto → 水平居中 */
+        background-color: #fff;
+        padding: 24px;
+      }
 
-    /* ===== 练习:分割线 hr,鼠标悬停变蓝 ===== */
-    .divider {
-      border: 1px solid #ccc;   /* 平时灰色 */
-    }
-    .divider:hover {
-      border-color: #2563eb;    /* 鼠标移上去变蓝 */
-    }
+      /* ===== 练习:分割线 hr,鼠标悬停变蓝 ===== */
+      .divider {
+        border: 1px solid #ccc; /* 平时灰色 */
+      }
+      .divider:hover {
+        border-color: #2563eb; /* 鼠标移上去变蓝 */
+      }
 
-    /* ===== 练习:群组选择器给 h1/h2 统一字体 ===== */
-    .article-title, .article-subtitle {
-      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
-    }
-  </style>
-</head>
-<body class="page">
+      /* ===== 练习:群组选择器给 h1/h2 统一字体 ===== */
+      .article-title,
+      .article-subtitle {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="page">
+    <!-- ============================================ -->
+    <!-- 1. CSS 三种写法 -->
+    <!-- ============================================ -->
+    <h2>1. CSS 的三种写法</h2>
 
-  <!-- ============================================ -->
-  <!-- 1. CSS 三种写法 -->
-  <!-- ============================================ -->
-  <h2>1. CSS 的三种写法</h2>
+    <h3>写法 1:行内样式(style 属性)</h3>
+    <p>直接写在标签上,优先级最高,但复用性差:</p>
+    <p style="color: red; font-size: 18px; font-weight: bold">
+      我是红色、18px、加粗的文字
+    </p>
+    <code>&lt;p style="color:red; font-size:18px;"&gt;文字&lt;/p&gt;</code>
 
-  <h3>写法 1:行内样式(style 属性)</h3>
-  <p>直接写在标签上,优先级最高,但复用性差:</p>
-  <p style="color:red; font-size:18px; font-weight:bold;">
-    我是红色、18px、加粗的文字
-  </p>
-  <code>&lt;p style="color:red; font-size:18px;"&gt;文字&lt;/p&gt;</code>
+    <hr />
 
-  <hr>
-
-  <h3>写法 2:内部样式表(style 标签)</h3>
-  <p>写在 <code>&lt;head&gt;</code> 里的 <code>&lt;style&gt;</code> 标签中,本页面通用(本页大部分示例用的就是这种):</p>
-  <pre>
+    <h3>写法 2:内部样式表(style 标签)</h3>
+    <p>
+      写在 <code>&lt;head&gt;</code> 里的
+      <code>&lt;style&gt;</code> 标签中,本页面通用(本页大部分示例用的就是这种):
+    </p>
+    <pre>
 &lt;head&gt;
   &lt;style&gt;
     h4 { color: blue; }
   &lt;/style&gt;
 &lt;/head&gt;
-  </pre>
-  <h4>← 我就是 style 标签里 h4 选择器渲染的蓝色</h4>
+  </pre
+    >
+    <h4>← 我就是 style 标签里 h4 选择器渲染的蓝色</h4>
 
-  <hr>
+    <hr />
 
-  <h3>写法 3:外部样式表(.css 文件)</h3>
-  <p>把 CSS 写在单独的 .css 文件里,用 link 标签引入,多页共用(下周项目里会用):</p>
-  <pre>
+    <h3>写法 3:外部样式表(.css 文件)</h3>
+    <p>
+      把 CSS 写在单独的 .css 文件里,用 link 标签引入,多页共用(下周项目里会用):
+    </p>
+    <pre>
 &lt;head&gt;
   &lt;link rel="stylesheet" href="style.css"&gt;
 &lt;/head&gt;
-  </pre>
+  </pre
+    >
 
-  <div class="tip-box">
-    <strong>⚠️ 实际工作推荐:</strong>项目中统一用<strong>外部样式表</strong>(写 .css 文件),内部样式表偶尔用小页面 demo,行内样式只在极少数特殊场景用(比如动态改某个元素)。
-  </div>
-
-  <hr>
-
-  <!-- ============================================ -->
-  <!-- 2. 基础选择器 -->
-  <!-- ============================================ -->
-  <h2>2. 五大基础选择器(必须记熟!)</h2>
-
-  <table border="1" cellpadding="8" cellspacing="0" style="font-size:13px;">
-    <thead>
-      <tr>
-        <th>选择器</th>
-        <th>写法</th>
-        <th>匹配谁</th>
-        <th>使用频率</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>标签选择器</td>
-        <td><code>p { ... }</code></td>
-        <td>所有 <code>&lt;p&gt;</code> 标签</td>
-        <td>⭐⭐⭐</td>
-      </tr>
-      <tr>
-        <td>class 选择器</td>
-        <td><code>.box { ... }</code></td>
-        <td>所有 <code>class="box"</code> 的元素(可重复使用)</td>
-        <td>⭐⭐⭐⭐⭐ 最重要!</td>
-      </tr>
-      <tr>
-        <td>id 选择器</td>
-        <td><code>#header { ... }</code></td>
-        <td><code>id="header"</code> 的元素(一页只能有一个)</td>
-        <td>⭐⭐</td>
-      </tr>
-      <tr>
-        <td>通配符选择器</td>
-        <td><code>* { ... }</code></td>
-        <td>所有元素</td>
-        <td>⭐⭐(重置默认样式时用)</td>
-      </tr>
-      <tr>
-        <td>群组选择器</td>
-        <td><code>h1, h2, p { ... }</code></td>
-        <td>h1 和 h2 和 p 都匹配</td>
-        <td>⭐⭐⭐⭐</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h3>class 选择器效果(上面 style 里写的 .tip-box):</h3>
-  <div class="tip-box">我是 class="tip-box" 的效果,黄色背景、左边橙色粗边框 ✨</div>
-  <div class="tip-box">同一个 class 可以用多次,这是第二个 tip-box</div>
-
-  <h3>id 选择器效果(上面 style 里写的 #unique-box):</h3>
-  <div id="unique-box">我是 id="unique-box" 的效果,蓝色虚线框。注意:一个 id 一页只能用一次!</div>
-
-  <hr>
-
-  <!-- ============================================ -->
-  <!-- 3. 高级选择器 -->
-  <!-- ============================================ -->
-  <h2>3. 常用高级选择器</h2>
-
-  <h3>3.1 后代选择器(空格分隔)</h3>
-  <p>选中「某个容器里面的某个后代」,不管隔了几层:</p>
-  <div class="article-demo">
-    <p>我在 article-demo 里面 → 被 <code>.article-demo p</code> 选中,变灰色。而且我的 <strong>strong 被变红色</strong>,因为 <code>.article-demo p strong</code>。</p>
-  </div>
-
-  <h3>3.2 直接子元素选择器(>)</h3>
-  <p>只选中「直接的儿子」,孙子不管:</p>
-  <div class="parent" style="border:1px solid #ccc;padding:12px;">
-    <p>我是 parent 直接儿子 → 被 <code>.parent > p</code> 选中,绿边框</p>
-    <div>
-      <p>我是 parent 的孙子(在 div 里面) → 不会被选,没有边框</p>
+    <div class="tip-box">
+      <strong>⚠️ 实际工作推荐:</strong
+      >项目中统一用<strong>外部样式表</strong>(写 .css
+      文件),内部样式表偶尔用小页面
+      demo,行内样式只在极少数特殊场景用(比如动态改某个元素)。
     </div>
-  </div>
 
-  <h3>3.3 伪类选择器 :hover(最常用)</h3>
-  <p>鼠标悬停时改变样式,按钮交互必备:</p>
-  <button class="hover-btn">鼠标放我上面试试 👇</button>
+    <hr />
 
-  <div class="tip-box">
-    <strong>📚 伪类还有这些(了解即可,以后会用到):</strong><br>
-    <code>:active</code>(点击按下时) / <code>:focus</code>(输入框获得焦点时) / <code>:first-child</code>(第一个子元素) / <code>:nth-child(n)</code>(第 n 个子元素)
-  </div>
+    <!-- ============================================ -->
+    <!-- 2. 基础选择器 -->
+    <!-- ============================================ -->
+    <h2>2. 五大基础选择器(必须记熟!)</h2>
 
-  <hr>
+    <table border="1" cellpadding="8" cellspacing="0" style="font-size: 13px">
+      <thead>
+        <tr>
+          <th>选择器</th>
+          <th>写法</th>
+          <th>匹配谁</th>
+          <th>使用频率</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>标签选择器</td>
+          <td><code>p { ... }</code></td>
+          <td>所有 <code>&lt;p&gt;</code> 标签</td>
+          <td>⭐⭐⭐</td>
+        </tr>
+        <tr>
+          <td>class 选择器</td>
+          <td><code>.box { ... }</code></td>
+          <td>所有 <code>class="box"</code> 的元素(可重复使用)</td>
+          <td>⭐⭐⭐⭐⭐ 最重要!</td>
+        </tr>
+        <tr>
+          <td>id 选择器</td>
+          <td><code>#header { ... }</code></td>
+          <td><code>id="header"</code> 的元素(一页只能有一个)</td>
+          <td>⭐⭐</td>
+        </tr>
+        <tr>
+          <td>通配符选择器</td>
+          <td><code>* { ... }</code></td>
+          <td>所有元素</td>
+          <td>⭐⭐(重置默认样式时用)</td>
+        </tr>
+        <tr>
+          <td>群组选择器</td>
+          <td><code>h1, h2, p { ... }</code></td>
+          <td>h1 和 h2 和 p 都匹配</td>
+          <td>⭐⭐⭐⭐</td>
+        </tr>
+      </tbody>
+    </table>
 
-  <!-- ============================================ -->
-  <!-- 4. 优先级(重要!) -->
-  <!-- ============================================ -->
-  <h2>4. 选择器优先级(冲突时听谁的?)</h2>
+    <h3>class 选择器效果(上面 style 里写的 .tip-box):</h3>
+    <div class="tip-box">
+      我是 class="tip-box" 的效果,黄色背景、左边橙色粗边框 ✨
+    </div>
+    <div class="tip-box">同一个 class 可以用多次,这是第二个 tip-box</div>
 
-  <p>同一个元素被多个选择器同时命中时,按<strong>优先级</strong>决定用哪套样式:</p>
+    <h3>id 选择器效果(上面 style 里写的 #unique-box):</h3>
+    <div id="unique-box">
+      我是 id="unique-box" 的效果,蓝色虚线框。注意:一个 id 一页只能用一次!
+    </div>
 
-  <div style="background:#f0fdf4;border:1px solid #86efac;padding:12px;border-radius:6px;line-height:2;">
-    <strong style="color:#166534;">权重从高到低:</strong><br>
-    <code><strong style="color:#b91c1c;">!important</strong></code> &nbsp;> 无敌,慎用<br>
-    <code>style="color:red"</code> &nbsp;> 行内样式(1000)<br>
-    <code>#id</code> &nbsp;> id 选择器(100)<br>
-    <code>.class / :hover / [attr]</code> &nbsp;> class 选择器(10)<br>
-    <code>p / h1 / div</code> &nbsp;> 标签选择器(1)<br>
-    <code>*</code> &nbsp;> 通配符(0)
-  </div>
+    <hr />
 
-  <h3>示例:</h3>
-  <pre>
+    <!-- ============================================ -->
+    <!-- 3. 高级选择器 -->
+    <!-- ============================================ -->
+    <h2>3. 常用高级选择器</h2>
+
+    <h3>3.1 后代选择器(空格分隔)</h3>
+    <p>选中「某个容器里面的某个后代」,不管隔了几层:</p>
+    <div class="article-demo">
+      <p>
+        我在 article-demo 里面 → 被
+        <code>.article-demo p</code> 选中,变灰色。而且我的
+        <strong>strong 被变红色</strong>,因为
+        <code>.article-demo p strong</code>。
+      </p>
+    </div>
+
+    <h3>3.2 直接子元素选择器(>)</h3>
+    <p>只选中「直接的儿子」,孙子不管:</p>
+    <div class="parent" style="border: 1px solid #ccc; padding: 12px">
+      <p>我是 parent 直接儿子 → 被 <code>.parent > p</code> 选中,绿边框</p>
+      <div>
+        <p>我是 parent 的孙子(在 div 里面) → 不会被选,没有边框</p>
+      </div>
+    </div>
+
+    <h3>3.3 伪类选择器 :hover(最常用)</h3>
+    <p>鼠标悬停时改变样式,按钮交互必备:</p>
+    <button class="hover-btn">鼠标放我上面试试 👇</button>
+
+    <div class="tip-box">
+      <strong>📚 伪类还有这些(了解即可,以后会用到):</strong><br />
+      <code>:active</code>(点击按下时) / <code>:focus</code>(输入框获得焦点时) /
+      <code>:first-child</code>(第一个子元素) / <code>:nth-child(n)</code>(第 n
+      个子元素)
+    </div>
+
+    <hr />
+
+    <!-- ============================================ -->
+    <!-- 4. 优先级(重要!) -->
+    <!-- ============================================ -->
+    <h2>4. 选择器优先级(冲突时听谁的?)</h2>
+
+    <p>
+      同一个元素被多个选择器同时命中时,按<strong>优先级</strong>决定用哪套样式:
+    </p>
+
+    <div
+      style="
+        background: #f0fdf4;
+        border: 1px solid #86efac;
+        padding: 12px;
+        border-radius: 6px;
+        line-height: 2;
+      "
+    >
+      <strong style="color: #166534">权重从高到低:</strong><br />
+      <code><strong style="color: #b91c1c">!important</strong></code> &nbsp;>
+      无敌,慎用<br />
+      <code>style="color:red"</code> &nbsp;> 行内样式(1000)<br />
+      <code>#id</code> &nbsp;> id 选择器(100)<br />
+      <code>.class / :hover / [attr]</code> &nbsp;> class 选择器(10)<br />
+      <code>p / h1 / div</code> &nbsp;> 标签选择器(1)<br />
+      <code>*</code> &nbsp;> 通配符(0)
+    </div>
+
+    <h3>示例:</h3>
+    <pre>
 /* class 权重 10 */
 .red { color: red; }
 
@@ -274,52 +309,110 @@ p   { color: blue; }
    答案:红色。因为 class 比标签权重大! */
 
 &lt;p class="red"&gt;我是什么颜色?&lt;/p&gt;
-  </pre>
+  </pre
+    >
 
-  <div class="tip-box">
-    <strong>💡 实战建议:</strong>尽量只用 class 选择器,不要用 id 和 !important,避免优先级打架。90% 的场景 class 够用。
-  </div>
+    <div class="tip-box">
+      <strong>💡 实战建议:</strong>尽量只用 class 选择器,不要用 id 和
+      !important,避免优先级打架。90% 的场景 class 够用。
+    </div>
 
-  <hr>
+    <hr />
 
-  <!-- ============================================ -->
-  <!-- 5. 综合练习:给 Day 2 文章写样式 -->
-  <!-- ============================================ -->
-  <h2>5. 综合练习:给 Day 2 文章加 CSS</h2>
+    <!-- ============================================ -->
+    <!-- 5. 综合练习:给 Day 2 文章写样式 -->
+    <!-- ============================================ -->
+    <h2>5. 综合练习:给 Day 2 文章加 CSS</h2>
 
-  <h3>任务</h3>
-  <p>在下方动手区,用「内部样式表」(style 标签写在 head 里)给 Day 2 学的文章结构加样式。<strong>不用写在 day2-text.html,就写在本页动手区</strong>。</p>
+    <h3>任务</h3>
+    <p>
+      在下方动手区,用「内部样式表」(style 标签写在 head 里)给 Day 2
+      学的文章结构加样式。<strong
+        >不用写在 day2-text.html,就写在本页动手区</strong
+      >。
+    </p>
 
-  <h3>要求清单(9 项)</h3>
-  <ul>
-    <li>✅ <strong>写一个 style 标签</strong>在本文件的 head 里(已写好,继续加规则就行)</li>
-    <li>✅ <strong>用 class 选择器</strong>给 body 加背景色 <code>#fafafa</code>、字号 <code>16px</code>、行高 <code>1.6</code></li>
-    <li>✅ <strong>用 class 选择器</strong>给文章容器加:宽度 <code>800px</code>、水平居中(提示:<code>margin:0 auto</code>)、背景白、padding <code>24px</code></li>
-    <li>✅ <strong>用 class 选择器</strong>给 h1 加:字号 <code>28px</code>、颜色 <code>#1f2328</code>、文字居中(<code>text-align:center</code>)、底部 margin <code>24px</code></li>
-    <li>✅ <strong>用 class 选择器</strong>给 h2 加:字号 <code>20px</code>、颜色 <code>#2563eb</code>、左边框 <code>4px solid #2563eb</code>、左边 padding <code>12px</code></li>
-    <li>✅ <strong>用 class 选择器</strong>给 p 加:颜色 <code>#4b5563</code>、上下 margin <code>12px</code>、首行缩进 <code>2em</code>(<code>text-indent:2em</code>)</li>
-    <li>✅ <strong>用 class 选择器</strong>给 strong 加:颜色 <code>#dc2626</code>、字号比正文大一点(<code>font-size:1.05em</code>)</li>
-    <li>✅ <strong>用 class 选择器 + :hover</strong>给 hr 加:平时颜色 <code>#ccc</code>,鼠标悬停变成 <code>#2563eb</code>(提示:<code>border-color</code>)</li>
-    <li>✅ <strong>用群组选择器</strong>给所有标题(h1/h2)加:字体 sans-serif(<code>font-family:-apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif</code>)</li>
-  </ul>
+    <h3>要求清单(9 项)</h3>
+    <ul>
+      <li>
+        ✅ <strong>写一个 style 标签</strong>在本文件的 head
+        里(已写好,继续加规则就行)
+      </li>
+      <li>
+        ✅ <strong>用 class 选择器</strong>给 body 加背景色
+        <code>#fafafa</code>、字号 <code>16px</code>、行高 <code>1.6</code>
+      </li>
+      <li>
+        ✅ <strong>用 class 选择器</strong>给文章容器加:宽度
+        <code>800px</code>、水平居中(提示:<code>margin:0 auto</code
+        >)、背景白、padding <code>24px</code>
+      </li>
+      <li>
+        ✅ <strong>用 class 选择器</strong>给 h1 加:字号 <code>28px</code>、颜色
+        <code>#1f2328</code>、文字居中(<code>text-align:center</code>)、底部
+        margin <code>24px</code>
+      </li>
+      <li>
+        ✅ <strong>用 class 选择器</strong>给 h2 加:字号 <code>20px</code>、颜色
+        <code>#2563eb</code>、左边框 <code>4px solid #2563eb</code>、左边
+        padding <code>12px</code>
+      </li>
+      <li>
+        ✅ <strong>用 class 选择器</strong>给 p 加:颜色
+        <code>#4b5563</code>、上下 margin <code>12px</code>、首行缩进
+        <code>2em</code>(<code>text-indent:2em</code>)
+      </li>
+      <li>
+        ✅ <strong>用 class 选择器</strong>给 strong 加:颜色
+        <code>#dc2626</code>、字号比正文大一点(<code>font-size:1.05em</code>)
+      </li>
+      <li>
+        ✅ <strong>用 class 选择器 + :hover</strong>给 hr 加:平时颜色
+        <code>#ccc</code>,鼠标悬停变成
+        <code>#2563eb</code>(提示:<code>border-color</code>)
+      </li>
+      <li>
+        ✅ <strong>用群组选择器</strong>给所有标题(h1/h2)加:字体
+        sans-serif(<code
+          >font-family:-apple-system, BlinkMacSystemFont, "PingFang SC",
+          sans-serif</code
+        >)
+      </li>
+    </ul>
 
-  <!-- ========== 动手区:在下面给文章加 class,并在 head 的 style 里写对应的 CSS ========== -->
+    <!-- ========== 动手区:在下面给文章加 class,并在 head 的 style 里写对应的 CSS ========== -->
 
-  <h3>👩‍💻 我的第一篇 CSS 文章</h3>
-  <!-- 提示:1) 在下面的元素上补 class;2) 在本文件 head 的 style 标签里写对应选择器 -->
-  <div class="article">
-    <h1 class="article-title">为什么我要学前端开发</h1>
+    <h3>👩‍💻 我的第一篇 CSS 文章</h3>
+    <!-- 提示:1) 在下面的元素上补 class;2) 在本文件 head 的 style 标签里写对应选择器 -->
+    <div class="article">
+      <h1 class="article-title">为什么我要学前端开发</h1>
 
-    <h2 class="article-subtitle">从兴趣到行动</h2>
-    <p class="article-text">前端开发是一个看得见结果的技术领域——每当我写完一段代码,刷新浏览器就能立刻看到效果,这种反馈是我持续学习的最大动力。<strong class="highlight-strong">动手实践比看 10 遍教程都有效</strong>。</p>
-    <p class="article-text">我决定从 HTML 基础开始,一步一个脚印,把每个知识点都练扎实。哪怕只是一个简单的标签,我也要自己敲一遍,确认它能跑通,而不是光看教程。</p>
+      <h2 class="article-subtitle">从兴趣到行动</h2>
+      <p class="article-text">
+        前端开发是一个看得见结果的技术领域——每当我写完一段代码,刷新浏览器就能立刻看到效果,这种反馈是我持续学习的最大动力。<strong
+          class="highlight-strong"
+          >动手实践比看 10 遍教程都有效</strong
+        >。
+      </p>
+      <p class="article-text">
+        我决定从 HTML
+        基础开始,一步一个脚印,把每个知识点都练扎实。哪怕只是一个简单的标签,我也要自己敲一遍,确认它能跑通,而不是光看教程。
+      </p>
 
-    <hr class="divider">
+      <hr class="divider" />
 
-    <h2 class="article-subtitle">我的学习计划</h2>
-    <p class="article-text">第一周我先把 HTML 全部学完,掌握常见标签的写法和语义,包括文本、列表、链接、图片、表格、表单,还有最重要的语义化标签。<em>代码结构清晰,以后维护才不会哭。</em></p>
-    <p class="article-text">第二周开始学 CSS,把内容变得好看起来。字体、颜色、间距、布局——这些都是 CSS 的领域。Flex 布局是我重点要攻克的,因为前端工作中 80% 的布局都是靠 Flex 实现的。</p>
-  </div>
-
-</body>
+      <h2 class="article-subtitle">我的学习计划</h2>
+      <p class="article-text">
+        第一周我先把 HTML
+        全部学完,掌握常见标签的写法和语义,包括文本、列表、链接、图片、表格、表单,还有最重要的语义化标签。<em
+          >代码结构清晰,以后维护才不会哭。</em
+        >
+      </p>
+      <p class="article-text">
+        第二周开始学 CSS,把内容变得好看起来。字体、颜色、间距、布局——这些都是
+        CSS 的领域。Flex 布局是我重点要攻克的,因为前端工作中 80% 的布局都是靠
+        Flex 实现的。
+      </p>
+    </div>
+  </body>
 </html>

@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 9 · CSS 盒模型</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      /* ===== 页面基础 ===== */
+      .page {
+        background-color: #fafafa;
+        font-size: 16px;
+        line-height: 1.6;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+        color: #1f2328;
+      }
+      .container {
+        width: 880px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 32px 40px;
+      }
+
+      /* ===== 标题 ===== */
+      .section-title {
+        font-size: 24px;
+        color: #1f2328;
+        border-left: 5px solid #7c5cff;
+        padding-left: 12px;
+        margin: 32px 0 16px;
+      }
+      .sub-title {
+        font-size: 18px;
+        color: #2563eb;
+        margin: 20px 0 10px;
+      }
+
+      /* ===== 正文段落 ===== */
+      .body-text {
+        color: #4b5563;
+        margin: 12px 0;
+      }
+      .body-text code {
+        background: #f3f4f6;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.9em;
+        color: #dc2626;
+      }
+
+      /* ===== 提示框 ===== */
+      .tip-box {
+        background: #fef3c7;
+        padding: 12px 16px;
+        border-left: 4px solid #f59e0b;
+        margin: 16px 0;
+        border-radius: 0 6px 6px 0;
+      }
+      .warn-box {
+        background: #fee2e2;
+        padding: 12px 16px;
+        border-left: 4px solid #dc2626;
+        margin: 16px 0;
+        border-radius: 0 6px 6px 0;
+      }
+      .success-box {
+        background: #f0fdf4;
+        padding: 12px 16px;
+        border-left: 4px solid #16a34a;
+        margin: 16px 0;
+        border-radius: 0 6px 6px 0;
+      }
+
+      /* ===== 盒模型可视化(教程用) ===== */
+      .box-demo {
+        background: #dbeafe; /* padding 区域(浅蓝) */
+        padding: 20px;
+        border: 4px solid #2563eb; /* border 区域(深蓝) */
+        margin: 20px 0; /* margin 区域(透明,看不出来) */
+      }
+      .box-content {
+        background: #fecaca; /* content 区域(浅红) */
+        padding: 12px;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      /* ===== 代码块 ===== */
+      .code-block {
+        background: #1f2937;
+        color: #e5e7eb;
+        padding: 16px;
+        border-radius: 6px;
+        font-family: "SF Mono", Consolas, Monaco, monospace;
+        font-size: 13px;
+        line-height: 1.6;
+        overflow-x: auto;
+        margin: 12px 0;
+      }
+      .code-block .c-key {
+        color: #fbbf24;
+      }
+      .code-block .c-prop {
+        color: #93c5fd;
+      }
+      .code-block .c-val {
+        color: #86efac;
+      }
+      .code-block .c-com {
+        color: #6b7280;
+      }
+
+      /* ===== 对比演示表格 ===== */
+      .compare-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0;
+        font-size: 14px;
+      }
+      .compare-table th,
+      .compare-table td {
+        border: 1px solid #d1d5db;
+        padding: 10px 12px;
+        text-align: left;
+        vertical-align: top;
+      }
+      .compare-table th {
+        background: #f3f4f6;
+        color: #1f2328;
+      }
+
+      /* ===== margin 合并演示 ===== */
+      .merge-demo .top-box {
+        background: #dbeafe;
+        margin-bottom: 30px;
+        padding: 8px;
+      }
+      .merge-demo .bottom-box {
+        background: #fee2e2;
+        margin-top: 20px;
+        padding: 8px;
+      }
+      .merge-demo-no-collapse .top-box {
+        background: #dbeafe;
+        margin-bottom: 30px;
+        padding: 8px;
+      }
+      .merge-demo-no-collapse .bottom-box {
+        background: #fee2e2;
+        margin-top: 20px;
+        padding: 8px;
+        display: inline-block; /* 触发 BFC,阻止 margin 合并 */
+        width: 100%;
+      }
+
+      /* ===== 块级 vs 内联演示 ===== */
+      .block-demo {
+        background: #dbeafe;
+        padding: 8px;
+        margin: 8px 0;
+      }
+      .inline-demo {
+        background: #fecaca;
+        padding: 8px;
+        margin: 8px;
+      }
+
+      /* ===== 动手区容器 ===== */
+      .practice-area {
+        background: #f9fafb;
+        border: 2px dashed #9ca3af;
+        border-radius: 8px;
+        padding: 24px;
+        margin: 20px 0;
+      }
+      .practice-area-title {
+        font-size: 16px;
+        color: #7c5cff;
+        font-weight: bold;
+        margin-bottom: 12px;
+      }
+
+      /* ===== 动手区:你要在下面写代码 ===== */
+      /*
+      任务:在下方「动手区」里,用 class 选择器给一篇文章加盒模型样式。
+      所有 CSS 写在 <style> 标签里(已经开了一个块,继续往下写)。
+    */
+
+      /* === ↓↓ 动手区:从这里开始写 ↓↓ === */
+
+      /* 1. 文章容器:用 box-sizing 让 width 包含 padding 和 border */
+      .my-article {
+        /* 你的代码写在这里 */
+        width: 600px;
+        margin: 0 auto;
+        padding: 30px;
+        border: 1px solid #d1d5db;
+        background-color: #fff;
+      }
+
+      /* 2. 文章标题:给 padding 和 margin */
+      .my-title {
+        /* 你的代码写在这里 */
+        font-size: 24px;
+        text-align: center;
+        padding: 16px 0;
+        margin-bottom: 24px;
+        border-bottom: 2px solid #7c5cff;
+      }
+
+      /* 3. 段落:给 padding + margin,注意 margin 合并 */
+      .my-paragraph {
+        /* 你的代码写在这里 */
+        color: #4b5563;
+        line-height: 1.8;
+        /* display: inline-block; ⑦ 触发 BFC,阻止段落间 margin 合并 */
+        /* width: 100%; inline-block 默认宽度被内容撑开,加 100% 撑满父容器 */
+        padding: 0 8px; /* ④ 上下 0、左右 8px 内边距 */
+        margin: 16px 0;
+      }
+
+      /* 4. 强调文字:加内边距和背景 */
+      .my-highlight {
+        /* 你的代码写在这里 */
+        background: #fef3c7;
+        padding: 4px 8px;
+        margin: 4px;
+      }
+
+      /* 5. 分隔线:用 border 画线 */
+      .my-divider {
+        /* 你的代码写在这里 */
+        border: none;
+        border-top: 1px dashed #9ca3af;
+        margin: 24px 0;
+      }
+
+      /* 6. 内联元素对比:span 加 margin/padding 看效果 */
+      .my-inline {
+        /* 你的代码写这里 */
+        padding: 8px;
+        background: #dbeafe;
+        margin: 30px;
+      }
+    </style>
+  </head>
+  <body class="page">
+    <div class="container">
+      <h1 class="section-title" style="border-left-color: #7c5cff">
+        Day 9 · CSS 盒模型
+      </h1>
+      <p class="body-text">
+        盒模型是 CSS 布局的灵魂。不懂盒模型,后面写 Flex/Grid
+        都会踩坑。今天把它吃透。
+      </p>
+
+      <!-- ============================================ -->
+      <!-- 1. 盒模型是什么 -->
+      <!-- ============================================ -->
+      <h2 class="section-title">1. 盒模型是什么?</h2>
+      <p class="body-text">
+        浏览器把<strong>每一个 HTML 元素</strong
+        >都看成一个「矩形盒子」,盒子从内到外有 <strong>4 层</strong>:
+      </p>
+
+      <div class="box-demo">
+        <div class="box-content">content(内容区)</div>
+      </div>
+
+      <p class="body-text">从外到内依次是:</p>
+      <ul class="body-text">
+        <li><code>margin</code> 外边距:盒子和其他元素之间的距离(透明)</li>
+        <li><code>border</code> 边框:盒子的边</li>
+        <code>padding</code>
+        内边距:边框到内容的距离(背景色会延伸到这里)
+        <li><code>content</code> 内容区:文字/图片实际显示的地方</li>
+      </ul>
+
+      <div class="tip-box">
+        <strong>记忆口诀:</strong>「外边距 → 边框 → 内边距 →
+        内容」,从外往里剥洋葱 🧅。
+      </div>
+
+      <!-- ============================================ -->
+      <!-- 2. 计算盒子尺寸 -->
+      <!-- ============================================ -->
+      <h2 class="section-title">2. 盒子的实际尺寸(默认会"撑大"!)</h2>
+      <p class="body-text">这是盒模型最容易踩坑的地方。看这个例子:</p>
+
+      <pre
+        class="code-block"
+      ><span class="c-com">/* CSS 默认行为(content-box) */</span>
+<span class="c-prop">.box</span> {
+  <span class="c-key">width</span>: <span class="c-val">200px</span>;
+  <span class="c-key">padding</span>: <span class="c-val">20px</span>;
+  <span class="c-key">border</span>: <span class="c-val">5px solid red</span>;
+}
+
+<span class="c-com">/* 实际在页面里占多宽?
+   200 + 20*2(padding 左右) + 5*2(border 左右)
+   = 200 + 40 + 10 = 250px ❌ 不是 200! */</span></pre>
+
+      <div class="warn-box">
+        <strong>⚠️ 新手大坑:</strong>你以为 <code>width:200px</code> 就是
+        200px,实际加上 padding 和 border 会变成 250px!布局全乱!
+      </div>
+
+      <h3 class="sub-title">2.1 解决方案:box-sizing: border-box</h3>
+      <p class="body-text">
+        加上一行魔法属性,让 <code>width</code> 直接包含 padding 和 border:
+      </p>
+
+      <pre class="code-block"><span class="c-prop">.box</span> {
+  <span class="c-key">box-sizing</span>: <span class="c-val">border-box</span>;  <span class="c-com">/* 关键! */</span>
+  <span class="c-key">width</span>: <span class="c-val">200px</span>;
+  <span class="c-key">padding</span>: <span class="c-val">20px</span>;
+  <span class="c-key">border</span>: <span class="c-val">5px solid red</span>;
+}
+
+<span class="c-com">/* 现在实际宽度就是 200px!
+   padding 和 border 会"挤进" content 区域,
+   content 自动变成 200 - 40 - 10 = 150px */</span></pre>
+
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>属性</th>
+            <th>content-box(默认)</th>
+            <th>border-box(推荐)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>width 含义</td>
+            <td>只算 content</td>
+            <td>含 content + padding + border</td>
+          </tr>
+          <tr>
+            <td>加 padding 会不会撑大盒子</td>
+            <td>会 ✗</td>
+            <td>不会 ✓</td>
+          </tr>
+          <tr>
+            <td>加 border 会不会撑大盒子</td>
+            <td>会 ✗</td>
+            <td>不会 ✓</td>
+          </tr>
+          <tr>
+            <td>日常推荐</td>
+            <td>不推荐</td>
+            <td>⭐⭐⭐⭐⭐ 必用</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="success-box">
+        <strong>✅ 全局推荐写法(以后每个项目都加):</strong>
+        <pre
+          style="
+            margin: 8px 0 0;
+            background: #dcfce7;
+            padding: 8px;
+            border-radius: 4px;
+          "
+        ><code>* {
+  box-sizing: border-box;
+}</code></pre>
+        <span style="font-size: 13px; color: #166534"
+          >用通配符 <code>*</code> 让所有元素都用
+          border-box,从此告别"盒子撑大"烦恼。</span
+        >
+      </div>
+
+      <!-- ============================================ -->
+      <!-- 3. 块级 vs 内联元素盒模型差异 -->
+      <!-- ============================================ -->
+      <h2 class="section-title">3. 块级 vs 内联元素的盒模型差异</h2>
+      <p class="body-text">不同 display 的元素,盒模型行为不一样:</p>
+
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>对比项</th>
+            <th>块级(div / p / h1 / section)</th>
+            <th>内联(span / a / strong)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>是否独占一行</td>
+            <td>是</td>
+            <td>否,多个并排</td>
+          </tr>
+          <tr>
+            <td>width / height</td>
+            <td>有效</td>
+            <td>无效(被内容撑开)</td>
+          </tr>
+          <tr>
+            <td>上下 margin</td>
+            <td>有效</td>
+            <td>无效</td>
+          </tr>
+          <tr>
+            <td>左右 margin</td>
+            <td>有效</td>
+            <td>有效</td>
+          </tr>
+          <tr>
+            <td>padding(上下)</td>
+            <td>有效,会撑大</td>
+            <td>有效,但<strong>不影响行高</strong>(会盖到上下行)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub-title">3.1 实测:内联元素上下 margin 无效</h3>
+      <p class="body-text">
+        下面 span 我加了
+        <code>margin: 30px</code>,但上下根本不动,只有左右有间距:
+      </p>
+      <p class="body-text">
+        这是一段文字,里面有个
+        <span class="inline-demo"
+          >内联元素 span(加了 margin:30px,但上下没动)</span
+        >
+        继续文字。
+      </p>
+
+      <p class="body-text">
+        对比块级元素 <code>div</code>,上下 margin 完全有效:
+      </p>
+      <div class="block-demo">我是 div(块级),上下 margin 8px 生效</div>
+      <div class="block-demo">第二个 div,中间有 16px 间距(8+8)</div>
+
+      <div class="tip-box">
+        <strong>💡 结论:</strong>给 <code>span</code>、<code>a</code>、<code
+          >strong</code
+        >
+        这种内联元素设宽高、上下 margin 都是没用的。要让它们生效,先
+        <code>display:inline-block</code> 或 <code>display:block</code>。
+      </div>
+
+      <!-- ============================================ -->
+      <!-- 4. margin 合并 -->
+      <!-- ============================================ -->
+      <h2 class="section-title">4. margin 合并(垂直方向"取大值")</h2>
+      <p class="body-text">
+        这是另一个坑:<strong
+          >两个垂直相邻的块级元素,它们的上下 margin
+          不是相加,而是「取较大值」</strong
+        >。
+      </p>
+
+      <h3 class="sub-title">4.1 合并现象(默认)</h3>
+      <p class="body-text">
+        下面两个 div,上面 <code>margin-bottom:30px</code>,下面
+        <code>margin-top:20px</code>,实际间距是
+        <strong>30px</strong>(取大值,不是 50px):
+      </p>
+      <div class="merge-demo">
+        <div class="top-box">上盒子:margin-bottom:30px</div>
+        <div class="bottom-box">
+          下盒子:margin-top:20px(实际间距 = 30,不是 50)
+        </div>
+      </div>
+
+      <h3 class="sub-title">4.2 阻止合并:触发 BFC</h3>
+      <p class="body-text">
+        给下面盒子加 <code>display:inline-block</code>(或 overflow:hidden、float
+        等)就能阻止合并,此时间距 = 30 + 20 = 50px:
+      </p>
+      <div class="merge-demo-no-collapse">
+        <div class="top-box">上盒子:margin-bottom:30px</div>
+        <div class="bottom-box">
+          下盒子:display:inline-block + margin-top:20px → 间距 = 50
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>📚 什么时候会发生合并?</strong><br />
+        ① 相邻兄弟元素(如上) <br />
+        ② 父元素和第一个/最后一个子元素之间(无 border、padding、inline-block
+        阻隔时) <br />
+        ③ 空的块级元素(自己上下 margin 合并) <br /><br />
+        <strong>记住:</strong>只有<strong>垂直方向</strong>(margin-top /
+        margin-bottom)会合并,水平方向(左右)永远不合并。
+      </div>
+
+      <!-- ============================================ -->
+      <!-- 5. 综合练习 -->
+      <!-- ============================================ -->
+      <h2 class="section-title">5. 综合练习:给文章加盒模型样式</h2>
+      <p class="body-text">
+        在下方动手区,用 class 选择器给文章加盒模型样式。<strong
+          >所有 CSS 写在 head 里的 style 标签</strong
+        >,我已经帮你开了几个空规则,你来填内容。
+      </p>
+
+      <h3 class="sub-title">要求清单(8 项)</h3>
+      <ul class="body-text">
+        <li>
+          ① <strong>全局加</strong>
+          <code>* { box-sizing: border-box; }</code>(在 style 顶部加)
+        </li>
+        <li>
+          ② <strong>给 .my-article 加</strong>:width
+          <code>600px</code>、水平居中(<code>margin:0 auto</code>)、padding
+          <code>30px</code>、border <code>1px solid #d1d5db</code>、背景白
+          <code>#fff</code>
+        </li>
+        <li>
+          ③ <strong>给 .my-title 加</strong>:font-size
+          <code>24px</code>、text-align <code>center</code>、padding
+          <code>16px 0</code>、margin-bottom <code>24px</code>、底部 border
+          <code>2px solid #7c5cff</code>
+        </li>
+        <li>
+          ④ <strong>给 .my-paragraph 加</strong>:颜色 <code>#4b5563</code>、行高
+          <code>1.8</code>、padding <code>0 8px</code>(左右内边距)、margin
+          <code>16px 0</code>
+        </li>
+        <li>
+          ⑤ <strong>给 .my-highlight 加</strong>:背景
+          <code>#fef3c7</code>、padding <code>4px 8px</code>、左右 margin
+          <code>4px</code>(注意:它是内联元素,上下 margin 无效,这是预期的)
+        </li>
+        <li>
+          ⑥ <strong>给 .my-divider 加</strong>:border <code>none</code>、顶部
+          border <code>1px dashed #9ca3af</code>、margin <code>24px 0</code>
+        </li>
+        <li>
+          ⑦ <strong>用 inline-block 阻止 margin 合并</strong>:给 .my-paragraph
+          加 <code>display:inline-block</code> 和
+          <code>width:100%</code>,观察段落间距从 16(margin 合并后)变成
+          32(16+16)。截图前
+          <strong>注释掉 inline-block 那两行</strong>,保持正常显示,但在 CSS
+          里留注释说明
+        </li>
+        <li>
+          ⑧ <strong>对比内联元素</strong>:给 .my-inline 加
+          <code>padding:8px</code>、背景
+          <code>#dbeafe</code>、<code>margin:30px</code>,确认上下 margin
+          无效(只有左右生效)
+        </li>
+      </ul>
+
+      <div class="warn-box">
+        <strong>⚠️ 重要:</strong>动手前先在 style 顶部加
+        <code>* { box-sizing: border-box; }</code>。否则 .my-article 加了
+        padding 和 border 后实际宽度会超过 600px。
+      </div>
+
+      <!-- ========== 动手区:在这里写代码 ========== -->
+      <div class="practice-area">
+        <div class="practice-area-title">
+          ✍️ 动手区(在 head 的 style 里写 CSS,这里只放 HTML 结构)
+        </div>
+
+        <article class="my-article">
+          <h1 class="my-title">CSS 盒模型入门</h1>
+
+          <p class="my-paragraph">
+            盒模型是 CSS 布局的核心概念。每一个 HTML
+            元素都是一个矩形盒子,从内到外有四层:content、padding、border、margin。理解了这四层,后面写布局才不会踩坑。
+          </p>
+
+          <p class="my-paragraph">
+            最重要的一个属性是
+            <span class="my-highlight">box-sizing: border-box</span>,它让 width
+            包含 padding 和 border,避免盒子被"撑大"。从此你设
+            width:600px,实际占的宽度就是 600px,不用再做加减法。
+          </p>
+
+          <p class="my-paragraph">
+            另一个常见现象是
+            <span class="my-highlight">margin 合并</span
+            >:两个垂直相邻的块级元素,它们的 margin 不是相加而是取大值。要让
+            margin 不合并,可以给元素加
+            <span class="my-inline">inline-block</span> 等触发 BFC 的属性。
+          </p>
+
+          <hr class="my-divider" />
+
+          <p class="my-paragraph">
+            最后,内联元素(如 span、a)的盒模型和块级不同:width、height、上下
+            margin 都无效。要让它们生效,需要先改 display。
+          </p>
+        </article>
+      </div>
+
+      <div class="tip-box">
+        <strong>✅ 完成后:</strong>保存文件,在浏览器打开
+        <code>http://localhost:8080/week2-css/day9-boxmodel.html</code>
+        看效果,然后跟我说「检查 Day 9」,我会逐项对照清单检查。
+      </div>
+    </div>
+  </body>
+</html>
