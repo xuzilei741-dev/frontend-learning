@@ -1,0 +1,961 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 11 · Flex 布局</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      /* ===== 页面基础 ===== */
+      .page {
+        background-color: #fafafa;
+        font-size: 16px;
+        line-height: 1.6;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei",
+          sans-serif;
+        color: #1f2328;
+      }
+      .container {
+        width: 880px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 32px 40px;
+      }
+
+      /* ===== 标题 ===== */
+      .section-title {
+        font-size: 24px;
+        color: #1f2328;
+        border-left: 5px solid #7c5cff;
+        padding-left: 12px;
+        margin: 32px 0 16px;
+      }
+      .sub-title {
+        font-size: 18px;
+        color: #2563eb;
+        margin: 20px 0 10px;
+      }
+
+      /* ===== 正文段落 ===== */
+      .body-text {
+        color: #4b5563;
+        margin: 12px 0;
+      }
+      .body-text code {
+        background: #f3f4f6;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.9em;
+        color: #dc2626;
+      }
+
+      /* ===== 提示框 ===== */
+      .tip-box {
+        background: #fef3c7;
+        padding: 12px 16px;
+        border-left: 4px solid #f59e0b;
+        margin: 16px 0;
+        border-radius: 0 6px 6px 0;
+      }
+      .warn-box {
+        background: #fee2e2;
+        padding: 12px 16px;
+        border-left: 4px solid #dc2626;
+        margin: 16px 0;
+        border-radius: 0 6px 6px 0;
+      }
+      .success-box {
+        background: #f0fdf4;
+        padding: 12px 16px;
+        border-left: 4px solid #16a34a;
+        margin: 16px 0;
+        border-radius: 0 6px 6px 0;
+      }
+
+      /* ===== Flex 演示通用 ===== */
+      .flex-demo {
+        background: #f3f4f6;
+        border: 2px dashed #9ca3af;
+        border-radius: 6px;
+        padding: 12px;
+        margin: 12px 0;
+      }
+      .flex-item {
+        background: #7c5cff;
+        color: #fff;
+        padding: 12px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .flex-item-a {
+        background: #7c5cff;
+      }
+      .flex-item-b {
+        background: #2563eb;
+      }
+      .flex-item-c {
+        background: #16a34a;
+      }
+      .flex-item-d {
+        background: #f59e0b;
+      }
+
+      /* ===== flex-direction 演示 ===== */
+      .demo-row {
+        display: flex;
+        flex-direction: row;
+      }
+      .demo-row-reverse {
+        display: flex;
+        flex-direction: row-reverse;
+      }
+      .demo-column {
+        display: flex;
+        flex-direction: column;
+      }
+      .demo-column-reverse {
+        display: flex;
+        flex-direction: column-reverse;
+      }
+
+      /* ===== justify-content 演示 ===== */
+      .jc-start {
+        display: flex;
+        justify-content: flex-start;
+      }
+      .jc-center {
+        display: flex;
+        justify-content: center;
+      }
+      .jc-end {
+        display: flex;
+        justify-content: flex-end;
+      }
+      .jc-between {
+        display: flex;
+        justify-content: space-between;
+      }
+      .jc-around {
+        display: flex;
+        justify-content: space-around;
+      }
+      .jc-evenly {
+        display: flex;
+        justify-content: space-evenly;
+      }
+
+      /* ===== align-items 演示(容器高度固定看效果) ===== */
+      .ai-demo {
+        display: flex;
+        height: 100px;
+      }
+      .ai-start {
+        align-items: flex-start;
+      }
+      .ai-center {
+        align-items: center;
+      }
+      .ai-end {
+        align-items: flex-end;
+      }
+      .ai-stretch {
+        align-items: stretch;
+      }
+
+      /* ===== flex-wrap 演示 ===== */
+      .wrap-no {
+        display: flex;
+        flex-wrap: nowrap;
+      }
+      .wrap-yes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .wrap-item-fixed {
+        width: 200px;
+      }
+
+      /* ===== flex 简写演示 ===== */
+      .flex-grow-demo {
+        display: flex;
+      }
+      .flex-grow-1 {
+        flex: 1;
+      }
+      .flex-grow-2 {
+        flex: 2;
+      }
+      .flex-grow-0 {
+        flex: 0 0 120px;
+      }
+
+      /* ===== align-self 演示 ===== */
+      .align-self-demo {
+        display: flex;
+        height: 120px;
+        align-items: center;
+      }
+      .self-start {
+        align-self: flex-start;
+      }
+      .self-end {
+        align-self: flex-end;
+      }
+      .self-stretch {
+        align-self: stretch;
+      }
+
+      /* ===== 垂直居中演示 ===== */
+      .center-demo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 150px;
+        background: linear-gradient(135deg, #7c5cff 0%, #2563eb 100%);
+        border-radius: 8px;
+      }
+      .center-box {
+        background: #fff;
+        padding: 16px 24px;
+        border-radius: 6px;
+        font-weight: bold;
+        color: #1f2328;
+      }
+
+      /* ===== order 演示 ===== */
+      .order-demo {
+        display: flex;
+      }
+      .order-1 {
+        order: 3;
+      }
+      .order-2 {
+        order: 1;
+      }
+      .order-3 {
+        order: 2;
+      }
+
+      /* ===== 代码块 ===== */
+      .code-block {
+        background: #1f2937;
+        color: #e5e7eb;
+        padding: 16px;
+        border-radius: 6px;
+        font-family: "SF Mono", Consolas, Monaco, monospace;
+        font-size: 13px;
+        line-height: 1.6;
+        overflow-x: auto;
+        margin: 12px 0;
+      }
+      .c-key {
+        color: #fbbf24;
+      }
+      .c-prop {
+        color: #93c5fd;
+      }
+      .c-val {
+        color: #86efac;
+      }
+      .c-com {
+        color: #6b7280;
+      }
+
+      /* ===== 对比表格 ===== */
+      .compare-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0;
+        font-size: 14px;
+      }
+      .compare-table th,
+      .compare-table td {
+        border: 1px solid #d1d5db;
+        padding: 10px 12px;
+        text-align: left;
+        vertical-align: top;
+      }
+      .compare-table th {
+        background: #f3f4f6;
+        color: #1f2328;
+      }
+
+      /* ===== 动手区容器 ===== */
+      .practice-area {
+        background: #f9fafb;
+        border: 2px dashed #9ca3af;
+        border-radius: 8px;
+        padding: 24px;
+        margin: 20px 0;
+      }
+      .practice-area-title {
+        font-size: 16px;
+        color: #7c5cff;
+        font-weight: bold;
+        margin-bottom: 12px;
+      }
+
+      /* === ↓↓ 动手区:从这里开始写 ↓↓ === */
+
+      /* 1. 顶部导航:水平排列 + 两端对齐 */
+      .my-navbar {
+        /* 你的代码写在这里 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 12px 20px;
+        background: #fff;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .navbar-logo {
+        font-weight: bold;
+        font-size: 18px;
+        color: #1f2328;
+      }
+      .navbar-menu {
+        /* 菜单容器,也是 flex */
+        display: flex;
+        gap: 4px;
+      }
+      .navbar-link {
+        padding: 8px 16px;
+        color: #4b5563;
+        text-decoration: none;
+        border-radius: 4px;
+      }
+      .navbar-link:hover {
+        background: #f3f4f6;
+        color: #7c5cff;
+      }
+
+      /* 2. 卡片网格:wrap + gap */
+      .my-card-grid {
+        /* 你的代码写在这里 */
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 16px;
+        background: #f9fafb;
+      }
+      .my-card {
+        width: 200px;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 16px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      .card-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #1f2328;
+        margin-bottom: 8px;
+      }
+      .card-text {
+        font-size: 14px;
+        color: #6b7280;
+        line-height: 1.5;
+      }
+
+      /* 3. 主内容区:flex: 1 自适应 */
+      .my-layout {
+        /* 你的代码写在这里 */
+        display: flex;
+        gap: 16px;
+        margin: 16px 0;
+      }
+      .my-sidebar {
+        width: 200px;
+        background: #f9fafb;
+        padding: 16px;
+        border-radius: 6px;
+      }
+      .my-main {
+        /* 你的代码写在这里(flex: 1) */
+        flex: 1;
+        background: #fff;
+        padding: 16px;
+        border-radius: 6px;
+        border: 1px solid #e5e7eb;
+      }
+
+      /* 4. 垂直居中 hero 区 */
+      .my-hero {
+        /* 你的代码写在这里 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #7c5cff 0%, #2563eb 100%);
+        height: 200px;
+        border-radius: 8px;
+        margin: 16px 0;
+      }
+      .hero-content {
+        color: #fff;
+        text-align: center;
+      }
+      .hero-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+      .hero-subtitle {
+        font-size: 14px;
+        opacity: 0.9;
+      }
+
+      /* 5. align-self 单项对齐 */
+      .my-align-self-demo {
+        /* 你的代码写这里(容器) */
+        height: 120px;
+        background: #f3f4f6;
+        border: 2px dashed #9ca3af;
+        border-radius: 6px;
+      }
+      .my-self-start {
+        /* align-self: flex-start */
+      }
+      .my-self-center {
+        /* align-self: center */
+      }
+      .my-self-end {
+        /* align-self: flex-end */
+      }
+
+      /* 6. flex-direction: column 垂直菜单 */
+      .my-vertical-menu {
+        /* 你的代码写这里 */
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        width: 180px;
+        margin: 16px 0;
+        background: #1f2937;
+        padding: 8px;
+        border-radius: 6px;
+      }
+      .menu-item {
+        color: #d1d5db;
+        padding: 10px 16px;
+        border-radius: 4px;
+      }
+      .menu-item:hover {
+        background: #374151;
+        color: #fff;
+      }
+
+      /* 7. order 调整顺序 */
+      .my-order-demo {
+        /* 你的代码写这里(容器) */
+      }
+      .my-order-1 {
+        /* order: 3 */
+      }
+      .my-order-2 {
+        /* order: 1 */
+      }
+      .my-order-3 {
+        /* order: 2 */
+      }
+
+      /* 8. flex: 1 等分卡片 */
+      .my-equal-cards {
+        /* 你的代码写这里(容器) */
+        gap: 12px;
+      }
+      .my-equal-card {
+        /* 你的代码写这里(flex: 1) */
+        background: #dbeafe;
+        padding: 16px;
+        border-radius: 6px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body class="page">
+    <div class="container">
+      <h1 class="section-title" style="border-left-color: #7c5cff">
+        Day 11 · Flex 布局
+      </h1>
+      <p class="body-text">
+        Flex 是前端工作中 80%
+        的布局方案。学完今天,水平居中、垂直居中、自适应布局都不是事。
+      </p>
+
+      <!-- ============================================ -->
+      <!-- 1. Flex 是什么 -->
+      <!-- ============================================ -->
+      <h2 class="section-title">1. Flex 是什么?为什么必学?</h2>
+      <p class="body-text">
+        Flex(Flexible Box)是 CSS3 引入的<strong>一维布局</strong>方案。一维 =
+        一次只管一个方向(横或竖)。
+      </p>
+
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>对比</th>
+            <th>传统布局(float/position)</th>
+            <th>Flex 布局</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>水平居中</td>
+            <td>margin: 0 auto(要知道宽度)</td>
+            <td>justify-content: center(一行搞定)</td>
+          </tr>
+          <tr>
+            <td>垂直居中</td>
+            <td>定位 + transform(很麻烦)</td>
+            <td>align-items: center(一行搞定)</td>
+          </tr>
+          <tr>
+            <td>自适应分配空间</td>
+            <td>要算百分比,容易错位</td>
+            <td>flex: 1(自动分配)</td>
+          </tr>
+          <tr>
+            <td>等高列</td>
+            <td>做不到(要 hack)</td>
+            <td>天然支持</td>
+          </tr>
+          <tr>
+            <td>学习成本</td>
+            <td>看似简单,坑很多</td>
+            <td>概念清晰,坑少</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="tip-box">
+        <strong>💡 核心概念:</strong><br />
+        Flex 有两个角色:<br />
+        ① <strong>容器(flex container)</strong>:设了
+        <code>display:flex</code> 的元素<br />
+        ② <strong>项目(flex item)</strong>:容器里的直接子元素<br />
+        属性分两组:<strong>容器属性</strong>(管整体排列)+
+        <strong>项目属性</strong>(管单个项目)
+      </div>
+
+      <!-- ============================================ -->
+      <!-- 2. flex-direction 主轴方向 -->
+      <!-- ============================================ -->
+      <h2 class="section-title">2. flex-direction(主轴方向)</h2>
+      <p class="body-text">决定项目<strong>排列方向</strong>,4 个值:</p>
+
+      <h3 class="sub-title">2.1 row(默认,横向左→右)</h3>
+      <div class="flex-demo demo-row">
+        <div class="flex-item flex-item-a">A</div>
+        <div class="flex-item flex-item-b">B</div>
+        <div class="flex-item flex-item-c">C</div>
+      </div>
+
+      <h3 class="sub-title">2.2 row-reverse(横向右→左)</h3>
+      <div class="flex-demo demo-row-reverse">
+        <div class="flex-item flex-item-a">A</div>
+        <div class="flex-item flex-item-b">B</div>
+        <div class="flex-item flex-item-c">C</div>
+      </div>
+
+      <h3 class="sub-title">2.3 column(纵向上→下)</h3>
+      <div class="flex-demo demo-column">
+        <div class="flex-item flex-item-a">A</div>
+        <div class="flex-item flex-item-b">B</div>
+        <div class="flex-item flex-item-c">C</div>
+      </div>
+
+      <h3 class="sub-title">2.4 column-reverse(纵向下→上)</h3>
+      <div class="flex-demo demo-column-reverse">
+        <div class="flex-item flex-item-a">A</div>
+        <div class="flex-item flex-item-b">B</div>
+        <div class="flex-item flex-item-c">C</div>
+      </div>
+
+      <div class="tip-box">
+        <strong>📚 主轴与交叉轴:</strong><br />
+        - <code>flex-direction: row</code> 时:主轴 = 横向,交叉轴 = 纵向<br />
+        - <code>flex-direction: column</code> 时:主轴 = 纵向,交叉轴 = 横向<br />
+        后面的 <code>justify-content</code> 管主轴,<code>align-items</code>
+        管交叉轴!
+      </div>
+
+      <!-- ============================================ -->
+      <!-- 3. justify-content 主轴对齐 -->
+      <!-- ============================================ -->
+      <h2 class="section-title">3. justify-content(主轴对齐)</h2>
+      <p class="body-text">项目在<strong>主轴</strong>上的对齐方式,6 个值:</p>
+
+      <h3 class="sub-title">flex-start(默认,左对齐)</h3>
+      <div class="flex-demo jc-start">
+        <div class="flex-item flex-item-a">A</div>
+        <div class="flex-item flex-item-b">B</div>
+        <div class="flex-item flex-item-c">C</div>
+      </div>
+
+      <h3 class="sub-title">center(居中)</h3>
+      <div class="flex-demo jc-center">
+        <div class="flex-item flex-item-a">A</div>
+        <div class="flex-item flex-item-b">B</div>
+        <div class="flex-item flex-item-c">C</div>
+      </div>
+
+      <h3 class="sub-title">flex-end(右对齐)</h3>
+      <div class="flex-demo jc-end">
+        <div class="flex-item flex-item-a">A</div>
+        <div class="flex-item flex-item-b">B</div>
+        <div class="flex-item flex-item-c">C</div>
+      </div>
+
+      <h3 class="sub-title">space-between(两端对齐,项目间等距)</h3>
+      <div class="flex-demo jc-between">
+        <div class="flex-item flex-item-a">A</div>
+        <div class="flex-item flex-item-b">B</div>
+        <div class="flex-item flex-item-c">C</div>
+      </div>
+
+      <h3 class="sub-title">space-around(每个项目两侧等距)</h3>
+      <div class="flex-demo jc-around">
+        <div class="flex-item flex-item-a">A</div>
+        <div class="flex-item flex-item-b">B</div>
+        <div class="flex-item flex-item-c">C</div>
+      </div>
+
+      <h3 class="sub-title">space-evenly(所有间隔完全相等)</h3>
+      <div class="flex-demo jc-evenly">
+        <div class="flex-item flex-item-a">A</div>
+        <div class="flex-item flex-item-b">B</div>
+        <div class="flex-item flex-item-c">C</div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 区别:</strong>space-between 两端贴边;space-around
+        两端有半间距;space-evenly 两端有完整间距。<strong
+          >导航栏常用 space-between</strong
+        >。
+      </div>
+
+      <!-- ============================================ -->
+      <!-- 4. align-items 交叉轴对齐 -->
+      <!-- ============================================ -->
+      <h2 class="section-title">4. align-items(交叉轴对齐)</h2>
+      <p class="body-text">
+        项目在<strong>交叉轴</strong>(默认是纵向)上的对齐方式。容器要有<strong>高度</strong>才看得出效果:
+      </p>
+
+      <h3 class="sub-title">flex-start(顶部对齐)</h3>
+      <div class="flex-demo ai-demo ai-start">
+        <div class="flex-item flex-item-a">A</div>
+        <div class="flex-item flex-item-b">B</div>
+        <div class="flex-item flex-item-c">C</div>
+      </div>
+
+      <h3 class="sub-title">center(垂直居中)⭐ 最常用</h3>
+      <div class="flex-demo ai-demo ai-center">
+        <div class="flex-item flex-item-a">A</div>
+        <div class="flex-item flex-item-b">B</div>
+        <div class="flex-item flex-item-c">C</div>
+      </div>
+
+      <h3 class="sub-title">flex-end(底部对齐)</h3>
+      <div class="flex-demo ai-demo ai-end">
+        <div class="flex-item flex-item-a">A</div>
+        <div class="flex-item flex-item-b">B</div>
+        <div class="flex-item flex-item-c">C</div>
+      </div>
+
+      <h3 class="sub-title">stretch(默认,拉伸填满)</h3>
+      <div class="flex-demo ai-demo ai-stretch">
+        <div class="flex-item flex-item-a">A</div>
+        <div class="flex-item flex-item-b">B</div>
+        <div class="flex-item flex-item-c">C</div>
+      </div>
+
+      <div class="success-box">
+        <strong>✅ 垂直居中神技:</strong>
+        <pre
+          style="
+            margin: 8px 0 0;
+            background: #dcfce7;
+            padding: 8px;
+            border-radius: 4px;
+          "
+        ><code>.container {
+  display: flex;
+  justify-content: center;  /* 水平居中 */
+  align-items: center;      /* 垂直居中 */
+}</code></pre>
+        <span style="font-size: 13px; color: #166534"
+          >记住这两行,80% 的居中需求搞定。</span
+        >
+      </div>
+
+      <!-- ============================================ -->
+      <!-- 5. flex-wrap 换行 -->
+      <!-- ============================================ -->
+      <h2 class="section-title">5. flex-wrap(换行)</h2>
+      <p class="body-text">项目太多放不下时,要不要换行:</p>
+
+      <h3 class="sub-title">nowrap(默认,不换行,会压缩项目)</h3>
+      <div class="flex-demo wrap-no">
+        <div class="flex-item wrap-item-fixed">A 200px</div>
+        <div class="flex-item wrap-item-fixed">B 200px</div>
+        <div class="flex-item wrap-item-fixed">C 200px</div>
+        <div class="flex-item wrap-item-fixed">D 200px</div>
+      </div>
+
+      <h3 class="sub-title">wrap(换行)</h3>
+      <div class="flex-demo wrap-yes">
+        <div class="flex-item wrap-item-fixed">A 200px</div>
+        <div class="flex-item wrap-item-fixed">B 200px</div>
+        <div class="flex-item wrap-item-fixed">C 200px</div>
+        <div class="flex-item wrap-item-fixed">D 200px</div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 gap 属性:</strong>设了 <code>flex-wrap: wrap</code> 后,可以用
+        <code>gap: 12px</code> 控制行/列间距,比用 margin 简洁多了。<code
+          >gap: 8px 16px</code
+        >(行 8 列 16)。
+      </div>
+
+      <!-- ============================================ -->
+      <!-- 6. flex 简写(项目属性) -->
+      <!-- ============================================ -->
+      <h2 class="section-title">6. flex 简写(项目属性,最重要!)</h2>
+      <p class="body-text">
+        <code>flex</code> 是项目属性,控制项目如何分配剩余空间。3 个值:
+        <code>flex: grow shrink basis</code>
+      </p>
+
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>简写</th>
+            <th>展开</th>
+            <th>含义</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>flex: 1</code></td>
+            <td>1 1 0%</td>
+            <td>等分剩余空间,可放大可缩小</td>
+          </tr>
+          <tr>
+            <td><code>flex: 2</code></td>
+            <td>2 1 0%</td>
+            <td>占 2 倍空间</td>
+          </tr>
+          <tr>
+            <td><code>flex: 0 0 200px</code></td>
+            <td>0 0 200px</td>
+            <td>固定 200px,不放大不缩小</td>
+          </tr>
+          <tr>
+            <td><code>flex: auto</code></td>
+            <td>1 1 auto</td>
+            <td>按内容大小分配</td>
+          </tr>
+          <tr>
+            <td><code>flex: none</code></td>
+            <td>0 0 auto</td>
+            <td>不参与分配,按原始尺寸</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub-title">实测:flex: 1 vs flex: 2 vs flex: 0 0 120px</h3>
+      <div class="flex-demo flex-grow-demo">
+        <div class="flex-item flex-grow-1">flex: 1</div>
+        <div class="flex-item flex-grow-2">flex: 2</div>
+        <div class="flex-item flex-grow-0">flex: 0 0 120px</div>
+      </div>
+      <p class="body-text">
+        看出来了吗?<code>flex: 1</code> 和 <code>flex: 2</code> 按 1:2
+        分配剩余空间,固定宽度的项目不参与分配。
+      </p>
+
+      <!-- ============================================ -->
+      <!-- 7. align-self & order -->
+      <!-- ============================================ -->
+      <h2 class="section-title">7. align-self & order(单项目控制)</h2>
+
+      <h3 class="sub-title">7.1 align-self(单独设置某项的交叉轴对齐)</h3>
+      <p class="body-text">
+        容器用
+        <code>align-items: center</code> 全局居中,但某个项目想单独靠上/靠下?用
+        <code>align-self</code>:
+      </p>
+      <div class="flex-demo align-self-demo">
+        <div class="flex-item flex-item-a self-start">start</div>
+        <div class="flex-item flex-item-b">center(默认)</div>
+        <div class="flex-item flex-item-c self-end">end</div>
+        <div class="flex-item flex-item-d self-stretch">stretch</div>
+      </div>
+
+      <h3 class="sub-title">7.2 order(调整排列顺序)</h3>
+      <p class="body-text">
+        不改 HTML 顺序,用 CSS 控制显示顺序。默认 order 都是 0,数字越小越靠前:
+      </p>
+      <div class="flex-demo order-demo">
+        <div class="flex-item flex-item-a order-1">HTML 第1个,order:3</div>
+        <div class="flex-item flex-item-b order-2">HTML 第2个,order:1</div>
+        <div class="flex-item flex-item-c order-3">HTML 第3个,order:2</div>
+      </div>
+      <p class="body-text">实际显示顺序:B(1) → C(2) → A(3)</p>
+
+      <!-- ============================================ -->
+      <!-- 8. 综合练习 -->
+      <!-- ============================================ -->
+      <h2 class="section-title">8. 综合练习:常见 UI 布局</h2>
+      <p class="body-text">
+        用今天学的 Flex 实现 7 个常见 UI 模式,所有 CSS 写在 head 的 style 里。
+      </p>
+
+      <h3 class="sub-title">要求清单(8 项)</h3>
+      <ul class="body-text">
+        <li>
+          ① <strong>全局加</strong>
+          <code>* { box-sizing: border-box; }</code>(已写好)
+        </li>
+        <li>
+          ② <strong>.my-navbar 顶部导航</strong>:flex 容器、水平排列、<code
+            >justify-content: space-between</code
+          >、垂直居中、padding <code>12px 20px</code>、背景
+          <code>#fff</code>、底部 border <code>1px solid #e5e7eb</code>
+        </li>
+        <li>
+          ③ <strong>.navbar-menu 菜单容器</strong>:flex 容器、<code
+            >gap: 4px</code
+          >(菜单项之间间距)
+        </li>
+        <li>
+          ④ <strong>.my-card-grid 卡片网格</strong>:flex 容器、<code
+            >flex-wrap: wrap</code
+          >、<code>gap: 16px</code>、padding <code>16px</code>、背景
+          <code>#f9fafb</code>
+        </li>
+        <li>
+          ⑤ <strong>.my-layout 主布局</strong>:flex 容器、<code>gap: 16px</code
+          >、margin <code>16px 0</code>
+        </li>
+        <li>
+          ⑥ <strong>.my-main 主内容区</strong>:<code>flex: 1</code
+          >(自适应剩余空间,sidebar 固定 200px)
+        </li>
+        <li>
+          ⑦ <strong>.my-hero Hero 区</strong>:flex 容器、<code
+            >justify-content: center</code
+          >、<code>align-items: center</code>(水平+垂直居中)、margin
+          <code>16px 0</code>
+        </li>
+        <li>
+          ⑧ <strong>.my-vertical-menu 垂直菜单</strong>:flex 容器、<code
+            >flex-direction: column</code
+          >、<code>gap: 4px</code>、width <code>180px</code>、margin
+          <code>16px 0</code>
+        </li>
+      </ul>
+
+      <div class="tip-box">
+        <strong>💡 实战要点:</strong><br />
+        - 导航栏 = <code>justify-content: space-between</code> 经典用法<br />
+        - 卡片网格 = <code>flex-wrap: wrap + gap</code> 组合拳<br />
+        - 主内容自适应 = sidebar 固定宽度 + main 用 <code>flex: 1</code><br />
+        - 居中神技 = <code>justify-content: center + align-items: center</code>
+      </div>
+
+      <!-- ========== 动手区 ========== -->
+      <div class="practice-area">
+        <div class="practice-area-title">
+          ✍️ 动手区(在 head 的 style 里写 CSS,这里只放 HTML 结构)
+        </div>
+
+        <!-- ②③ 顶部导航 -->
+        <nav class="my-navbar">
+          <div class="navbar-logo">MyApp</div>
+          <div class="navbar-menu">
+            <a href="#" class="navbar-link">首页</a>
+            <a href="#" class="navbar-link">产品</a>
+            <a href="#" class="navbar-link">关于</a>
+            <a href="#" class="navbar-link">登录</a>
+          </div>
+        </nav>
+
+        <!-- ⑦ Hero 区 -->
+        <div class="my-hero">
+          <div class="hero-content">
+            <div class="hero-title">欢迎使用 Flex 布局</div>
+            <div class="hero-subtitle">一行代码搞定居中,告别 margin hack</div>
+          </div>
+        </div>
+
+        <!-- ⑤⑥ 主布局:侧栏 + 主内容 -->
+        <div class="my-layout">
+          <aside class="my-sidebar">
+            <strong>侧栏菜单</strong><br />
+            <span style="font-size: 13px; color: #6b7280">固定 200px 宽度</span>
+          </aside>
+          <main class="my-main">
+            <strong>主内容区(flex: 1 自适应)</strong><br />
+            <span style="font-size: 13px; color: #6b7280"
+              >这里会自动填满剩余空间,缩放窗口看效果</span
+            >
+          </main>
+        </div>
+
+        <!-- ④ 卡片网格 -->
+        <h3 style="margin: 16px 0 8px; color: #1f2328">卡片网格(wrap + gap)</h3>
+        <div class="my-card-grid">
+          <div class="my-card">
+            <div class="card-title">卡片 1</div>
+            <div class="card-text">
+              这是卡片内容,宽度固定 200px,放不下会换行。
+            </div>
+          </div>
+          <div class="my-card">
+            <div class="card-title">卡片 2</div>
+            <div class="card-text">
+              这是卡片内容,宽度固定 200px,放不下会换行。
+            </div>
+          </div>
+          <div class="my-card">
+            <div class="card-title">卡片 3</div>
+            <div class="card-text">
+              这是卡片内容,宽度固定 200px,放不下会换行。
+            </div>
+          </div>
+          <div class="my-card">
+            <div class="card-title">卡片 4</div>
+            <div class="card-text">
+              这是卡片内容,宽度固定 200px,放不下会换行。
+            </div>
+          </div>
+        </div>
+
+        <!-- ⑧ 垂直菜单 -->
+        <h3 style="margin: 16px 0 8px; color: #1f2328">垂直菜单(column)</h3>
+        <div class="my-vertical-menu">
+          <div class="menu-item">📊 仪表盘</div>
+          <div class="menu-item">👥 用户管理</div>
+          <div class="menu-item">📦 商品管理</div>
+          <div class="menu-item">⚙️ 系统设置</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>✅ 完成后:</strong>保存文件,在浏览器打开
+        <code>http://localhost:8080/week2-css/day11-flex.html</code>
+        看效果,然后跟我说「检查 Day 11」,我会逐项对照清单检查。
+      </div>
+    </div>
+  </body>
+</html>
